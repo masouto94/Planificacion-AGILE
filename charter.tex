@@ -5,7 +5,7 @@
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
-\titulo{Título del proyecto} 
+\titulo{Sistema de recomendación para retail aumentado por \textit{transfer learning}} 
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
 %\posgrado{Carrera de Especialización en Sistemas Embebidos} 
@@ -19,18 +19,18 @@
 \autor{Matías Agustín Souto}
 
 % El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
-\director{Título y Nombre del director}
-\pertenenciaDirector{pertenencia} 
+\director{\textit{A definir}}
+\pertenenciaDirector{\textit{A definir}} 
 \codirector{} % para que aparezca en la portada se debe descomentar la opción codirector en los parámetros de documentclass
 \pertenenciaCoDirector{FIUBA}
 
 % Nombre del cliente, quien va a aprobar los resultados del proyecto, se puede usar con el comando \clientename y \empclientename
-\cliente{A definir}
-\empresaCliente{Consultora de tecnología (B2B)}
+\cliente{Equipo de IA Conversacional}
+\empresaCliente{NTT Data}
  
-\fechaINICIO{30 de abril de 2023}		%Fecha de inicio de la cursada de GdP \fechaInicioName
-\fechaFINALPlan{18 de junio de 2023} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{15 de mayo de 2024}	%Fecha de defensa pública del trabajo final
+\fechaINICIO{25 de agosto de 2026}		%Fecha de inicio de la cursada de GdP \fechaInicioName
+\fechaFINALPlan{13 de octubre de 2026} 	%Fecha de final de cursada de GdP
+\fechaFINALTrabajo{\textit{A definir}}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -59,7 +59,7 @@
 \rowcolor[HTML]{C0C0C0} 
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
-%1      & Se completa hasta el punto 5 inclusive                & {día} de {mes} de 202X \\ \hline
+1      & Se completa hasta el punto 5 inclusive                & 6 de septiembre de 2026 \\ \hline
 %2      & Se completa hasta el punto 9 inclusive
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
@@ -85,7 +85,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en \textcolor{red}{la implementación de un prototipo de un sistema de control de temperatura de una caldera industrial}. El trabajo tendrá un presupuesto preliminar estimado de \textcolor{red}{600} horas y un costo estimado de \textcolor{red}{\$ XXX}, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en \textcolor{red}{la implementación de un prototipo de un sistema de recomendación para compras online con miras a embeberlo en un flujo conversacional}. El trabajo tendrá un presupuesto preliminar estimado de \textcolor{red}{600} horas y un costo, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -106,28 +106,27 @@ Se adjunta a esta acta la planificación inicial.
 \section{1. Descripción técnica-conceptual del proyecto a realizar}
 \label{sec:descripcion}
 
-El presente proyecto es una iniciativa personal que llevo adelante orientada a mi propio crecimiento profesional dentro del área de inteligencia artificial conversacional. Actualmente me desempeño como ingeniero conversacional en una empresa de consultoría tecnológica, donde estamos explorando experiencias de compra conversacional que buscan replicar, dentro de una aplicación, la naturalidad de una interacción cara a cara en un comercio: el usuario inicia una sesión con un agente de voz o texto y le solicita productos con la misma naturalidad con la que se lo pediría a una persona en una tienda. No cuento con financiamiento externo ni con acuerdos de confidencialidad o de propiedad intelectual asociados a este trabajo; se trata de un desarrollo autónomo cuyos resultados son de mi autoría.
+El presente proyecto es una iniciativa personal que llevo adelante orientada a mi propio crecimiento profesional dentro del área de inteligencia artificial conversacional. Actualmente me desempeño como ingeniero conversacional en NTT Data,una empresa de consultoría tecnológica y de telecomunicaciones. En ella.estamos explorando diversas experiencias de compra conversacional que buscan replicar, dentro de una aplicación, la naturalidad de una interacción cara a cara en un comercio: el usuario inicia una sesión con un agente de voz o texto y le solicita productos con la misma naturalidad con la que se lo pediría a una persona en una tienda. No cuento con financiamiento externo ni con acuerdos de confidencialidad o de propiedad intelectual asociados a este trabajo; se trata de un desarrollo autónomo cuyos resultados son de mi autoría.
 
 En el estado actual de la industria, observo que la mayoría de las soluciones conversacionales para retail se limitan a actuar como buscadores de productos, incorporando en algunos casos un componente agéntico acotado (por ejemplo, agregar al carrito el producto ya identificado por el usuario). Sin embargo, estas soluciones no suelen incorporar un motor de recomendación robusto que perfile al usuario y proponga proactivamente productos relevantes dentro del propio flujo conversacional, tal como lo haría un vendedor humano que reconoce a un cliente recurrente y anticipa sus preferencias.
 
 El problema que quiero atender con este proyecto es, entonces, la falta de un componente de perfilado y recomendación que sea a la vez robusto y agnóstico a la plataforma conversacional que lo consume. La solución que propongo consiste en desarrollar un pipeline de perfilamiento-recomendación pensado como un servicio desacoplado del agente conversacional, expuesto a este último mediante una interfaz de tools simple (por ejemplo, \texttt{get\_profile(user)} y \texttt{recommend(context)}). De esta forma, el mismo motor podría integrarse tanto a una experiencia de ``compra sin clicks'' completamente conversacional como a una aplicación de retail clásica, ya que las recomendaciones no dependen de cómo el usuario efectúa la compra sino de su perfil y comportamiento.
 
-El motor que voy a desarrollar se compone de dos módulos. El primero es un perfilador que clasifica a los usuarios en función de features RFM (Recencia, Frecuencia, Valor monetario) y de atributos de comportamiento adicionales. El modelo RFM fue propuesto originalmente por Hughes\footnote{Hughes, A. M. (1994). \textit{Strategic Database Marketing}. Chicago: Probus Publishing.} como una heurística de segmentación de clientes, y fue posteriormente formalizado estadísticamente por Bult y Wansbeek\footnote{Bult, J. R., \& Wansbeek, T. (1995). Optimal Selection for Direct Mail. \textit{Marketing Science}, 14(4), 378–394.} para la selección óptima de destinatarios en campañas de marketing directo. Más adelante, Fader, Hardie y Lee\footnote{Fader, P. S., Hardie, B. G. S., \& Lee, K. L. (2005). RFM and CLV: Using Iso-Value Curves for Customer Base Analysis. \textit{Journal of Marketing Research}, 42(4), 415–430.} vincularon el paradigma RFM con el valor de vida del cliente (CLV), consolidándolo como un enfoque parsimonioso, de bajo requerimiento de datos e interpretación intuitiva, que sigue vigente como paradigma de segmentación conductual.
-
+El motor que voy a desarrollar se compone de dos módulos. El primero es un perfilador que clasifica a los usuarios en función de features RFM (Recencia, Frecuencia, Valor monetario) y de atributos de comportamiento adicionales.
 El segundo módulo del motor es un recomendador híbrido, que combino señales colaborativas, de contenido y de co-compra, y que produce un ranking de ítems a partir del perfil generado por el primer módulo. Un aspecto distintivo de mi propuesta es que abordo el recomendador como un problema de transfer learning: entreno un modelo ``pre entrenado'' sobre un dataset extenso y público —Amazon Reviews'23— que me permite acotar el universo de productos y perfiles a un conjunto de características y probabilidades de recomendación; luego, ajusto un modelo ``dedicado'', derivado del anterior, sobre el conjunto de datos disponible para un caso de uso concreto, típicamente más escueto en volumen o en riqueza de atributos. La ganancia que espero de este enfoque es poder producir recomendaciones de mejor calidad con menos datos y menor costo de cómputo que si entrenara un modelo desde cero para cada nuevo dominio.
 
-En la figura \ref{fig:diagBloques} presento el diagrama en bloques del sistema. Se observa que el flujo conversacional queda contenido en un agente orquestador (para la prueba de concepto, una API simple sobre Claude), que interpreta el lenguaje natural del usuario y llama al pipeline de perfilado-recomendación a través de un contrato de interfaz estable. El ``Motor'' agrupa al perfilador y al recomendador, cuyos resultados mantengo stateful respecto de la conversación en curso. Como capa de persistencia propongo Postgres, dada su capacidad de almacenar tanto datos estructurados (reseñas, perfiles de usuario) como semiestructurados (metadata de ítems en formato JSONB, tabla de co-compra).
+En la figura \ref{fig:diagrama_basico} presento el diagrama en bloques del sistema. Se observa que el flujo conversacional queda contenido en un agente orquestador (para la prueba de concepto, una API simple sobre Claude), que interpreta el lenguaje natural del usuario y llama al pipeline de perfilado-recomendación a través de un contrato de interfaz estable. El ``Motor'' agrupa al perfilador y al recomendador, cuyos resultados mantengo stateful respecto de la conversación en curso. Como capa de persistencia propongo Postgres, dada su capacidad de almacenar tanto datos estructurados (reseñas, perfiles de usuario) como semiestructurados (metadata de ítems en formato JSONB, tabla de co-compra).
 
 \begin{figure}[htpb]
 \centering
-\includegraphics[width=.65\textwidth]{./Figuras/diagBloques.png}
-\caption{Diagrama en bloques del sistema.}
+\includegraphics[width=.65\textwidth]{./Figuras/diagrama_basico.png}
+\caption{Diagrama del sistema.}
 \label{fig:diagBloques}
 \end{figure}
 
 El alcance de este trabajo lo acoto al diseño e implementación del sistema de perfilado-recomendación y de su API, sin abarcar el desarrollo del flujo conversacional completo; no obstante, voy a construir una prueba de concepto que demuestre cómo un agente conversacional podría consumir dicha API en tiempo real. Entre los desafíos que identifico a priori se destacan: el sesgo introducido por utilizar reseñas como proxy de compra (solo observo al usuario cuando dejó una reseña), el problema de cold-start para usuarios e ítems nuevos, y la cobertura incompleta de metadata en parte del dataset, que voy a resolver filtrando o marcando los ítems afectados según la estrategia de splitting estándar del dataset.
 
-En cuanto al estado del ciclo de vida, se trata de un desarrollo desde cero que voy a llevar hasta el nivel de prueba de concepto; la innovación radica principalmente en el enfoque de transfer learning aplicado a la combinación perfilado-recomendación y en el diseño de una interfaz agnóstica al bot conversacional, lo que habilita su reutilización en distintos verticales de comercio.
+Esto se trata de un desarrollo desde cero que voy a llevar hasta el nivel de prueba de concepto; la innovación radica principalmente en el enfoque de transfer learning aplicado a la combinación perfilado-recomendación y en el diseño de una interfaz agnóstica al bot conversacional, lo que habilita su reutilización en distintos verticales de comercio.
 
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
@@ -147,9 +146,9 @@ Usuario final & -                 & -            	& Consumidor de retail que com
 A continuación detallo las principales características de cada interesado:
 
 \begin{itemize}
-	\item Cliente: a definir. Represento este rol con una consultora de tecnología B2B genérica, similar a la empresa donde trabajo, que ofrece soluciones de compra conversacional a sus propios clientes de retail. Este interesado valora que el motor de perfilado-recomendación sea agnóstico al bot conversacional y a la vertical de comercio, de forma de poder reutilizarlo en distintas implementaciones para sus clientes.
+	\item Cliente: Equipo de IA Conversacional. Ofrece soluciones de compra conversacional a sus propios clientes. En este caso, de retail. Este interesado valora que el motor de perfilado-recomendación sea agnóstico al bot conversacional y a la vertical de comercio, de forma de poder reutilizarlo en distintas implementaciones para sus clientes.
 	\item Responsable: soy yo mismo, en tanto alumno de la Carrera de Especialización en Inteligencia Artificial de FIUBA, a cargo de la totalidad del diseño, desarrollo y documentación del proyecto.
-	\item Orientador: a definir. Todavía no tengo asignado un director de Trabajo Final; una vez confirmado, va a acompañar la definición de requerimientos técnicos y la validación de los resultados del recomendador.
+	\item Orientador: a definir. Todavía no tengo asignado un director de Trabajo Final; una vez confirmado.
 	\item Usuario final: es un consumidor genérico de una tienda de retail que interactúa con el agente conversacional para buscar y comprar productos. No tengo caracterizado un segmento específico de usuario, ya que el sistema está pensado para ser agnóstico al vertical de comercio.
 \end{itemize}
 
@@ -157,7 +156,7 @@ A continuación detallo las principales características de cada interesado:
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
-Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de transfer learning, que pueda integrarse como herramienta de un agente conversacional de compras. Busco que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Esto es una prueba de concepto con la cual pretendo demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, espero avanzar en mi propio desarrollo profesional dentro del área de inteligencia artificial conversacional.
+Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de \textit{transfer learning}, que pueda integrarse como herramienta de un agente conversacional de compras. Busco que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Esto es una prueba de concepto con la cual pretendo demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, espero avanzar en mi propio desarrollo profesional dentro del área de inteligencia artificial conversacional.
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
@@ -166,17 +165,17 @@ El proyecto incluye:
 \begin{itemize}
 	\item Diseño e implementación del módulo perfilador, basado en features RFM y atributos de comportamiento.
 	\item Diseño e implementación del módulo recomendador híbrido (colaborativo + contenido + co-compra).
-	\item Entrenamiento de un modelo ``pre entrenado'' sobre el dataset Amazon Reviews'23.
+	\item Entrenamiento de un modelo pre entrenado sobre el dataset Amazon Reviews'23.
 	\item Búsqueda y selección de un dataset más acotado, todavía no identificado, sobre el cual ajustar un modelo ``dedicado'' vía transfer learning, para validar la hipótesis de mejores recomendaciones con menos datos.
-	\item Exposición de los resultados vía una API con contrato estable (\texttt{get\_profile}, \texttt{recommend}).
+	\item Exposición de los resultados vía una API con contrato estable (por ejemplo \texttt{get\_profile}, \texttt{recommend}).
 	\item Diseño del esquema de persistencia en Postgres (reviews, perfiles de usuario, ítems, co-compra).
-	\item Una prueba de concepto (POC) de un agente conversacional simple (API sobre Claude) que consuma la API para demostrar la integración.
+	\item Una prueba de concepto de un agente conversacional simple que se monte sobre la API sobre Claude para denotar el punta a punta.
 \end{itemize}
 
 El presente proyecto no incluye:
 \begin{itemize}
-	\item El desarrollo del flujo conversacional completo ni de la interfaz de usuario final (app o bot productivo).
-	\item La integración con un bot conversacional real de producción.
+	\item El desarrollo del flujo conversacional completo ni de la interfaz de usuario final. Es decir, no es un desarrollo que se proponga entregar una solución conversacional punta a punta cerrada.
+	\item La integración con un bot conversacional real de producción. Tampoco espera ser conectada a un bot específico.
 	\item El despliegue en infraestructura productiva ni la operación continua del sistema.
 \end{itemize}
 
