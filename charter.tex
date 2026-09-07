@@ -157,56 +157,42 @@ A continuación detallo las principales características de cada interesado:
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
-\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
-
-¿Por qué se hace el proyecto? ¿Qué se quiere lograr? 
-
-Se recomienda que sea solo un párrafo que continúe con la idea de la frase ``el propósito de este proyecto es...'' (omitir la frase, ya que está en el título de la sección).
-\end{consigna}
+Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de transfer learning, que pueda integrarse como herramienta de un agente conversacional de compras. Busco que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Esto es una prueba de concepto con la cual pretendo demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, espero avanzar en mi propio desarrollo profesional dentro del área de inteligencia artificial conversacional.
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
 
-\begin{consigna}{red}
-¿Qué se incluye y que no se incluye en este proyecto?
-
-Se refiere al trabajo que se va a hacer para entregar el producto o resultado especificado. 
-
-Explicitar todo lo quede comprendido dentro del alcance del proyecto. Por ejemplo:
-
 El proyecto incluye:
 \begin{itemize}
-	\item Ítem 1.
-	\item Ítem 2.
-		\begin{itemize}
-		\item Subítem 1.
-		\item Subítem 2.
-		\item ...
-		\end{itemize}
-	\item ...
-	
+	\item Diseño e implementación del módulo perfilador, basado en features RFM y atributos de comportamiento.
+	\item Diseño e implementación del módulo recomendador híbrido (colaborativo + contenido + co-compra).
+	\item Entrenamiento de un modelo ``pre entrenado'' sobre el dataset Amazon Reviews'23.
+	\item Búsqueda y selección de un dataset más acotado, todavía no identificado, sobre el cual ajustar un modelo ``dedicado'' vía transfer learning, para validar la hipótesis de mejores recomendaciones con menos datos.
+	\item Exposición de los resultados vía una API con contrato estable (\texttt{get\_profile}, \texttt{recommend}).
+	\item Diseño del esquema de persistencia en Postgres (reviews, perfiles de usuario, ítems, co-compra).
+	\item Una prueba de concepto (POC) de un agente conversacional simple (API sobre Claude) que consuma la API para demostrar la integración.
 \end{itemize}
 
-Explicitar además todo lo que no quede incluido (``El presente proyecto no incluye...'')
-
-\end{consigna} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
+El presente proyecto no incluye:
+\begin{itemize}
+	\item El desarrollo del flujo conversacional completo ni de la interfaz de usuario final (app o bot productivo).
+	\item La integración con un bot conversacional real de producción.
+	\item El despliegue en infraestructura productiva ni la operación continua del sistema.
+\end{itemize}
 
 
 \section{5. Supuestos del proyecto}
 \label{sec:supuestos}
 
-\begin{consigna}{red} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
-``Para el desarrollo del presente proyecto se supone que: ...''
+Para el desarrollo del presente proyecto se supone que:
 
 \begin{itemize}
-	\item Supuesto 1.
-	\item Supuesto 2.
-	\item ...
+	\item El dataset Amazon Reviews'23 es suficientemente representativo del comportamiento de compra como para entrenar un modelo pre entrenado útil, a pesar de estar compuesto por reseñas y no por transacciones directas.
+	\item Que va a ser posible encontrar o construir un dataset más acotado, con menor volumen o riqueza de atributos, adecuado para validar el enfoque de transfer learning.
+	\item Que la infraestructura de cómputo personal (o de bajo costo) disponible es suficiente para entrenar los modelos propuestos dentro de los plazos del proyecto.
+	\item Que el uso del dataset Amazon Reviews'23 y de la API de Claude no presenta restricciones legales o de licenciamiento que impidan su uso en este trabajo.
+	\item Que no van a existir cambios significativos en la disponibilidad o el formato del dataset público durante el desarrollo del proyecto.
 \end{itemize}
-
-Por ejemplo, se podrían incluir supuestos respecto a disponibilidad de tiempo y recursos humanos y materiales, sobre la factibilidad técnica de distintos aspectos del proyecto, sobre otras cuestiones que sean necesarias para el éxito del proyecto como condiciones macroeconómicas o reglamentarias.
-
-\end{consigna} % ELIMINAR \begin{consigna}{red} y \end{consigna}{red} en las secciones que vayan completando para cada entrega parcial.
 
 \section{6. Product Backlog}
 \label{sec:backlog}
