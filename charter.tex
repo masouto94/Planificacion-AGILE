@@ -195,7 +195,7 @@ Para el desarrollo del presente proyecto se supone que:
 \section{6. Product Backlog}
 \label{sec:backlog}
 
-El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias de usuario. El criterio de Story Points adoptado es una escala Fibonacci (1-2-3-5-8-13), ponderando la complejidad técnica, el nivel de incertidumbre (por ejemplo, la disponibilidad de un dataset acotado para HU6) y la experiencia previa del alumno.
+El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias de usuario. El criterio para la asignación de Story Points fue la escala Fibonacci (1-2-3-5-8-13). Por lo tanto, solo se podrán asignar esos valores. Se pondera la complejidad técnica, el nivel de incertidumbre, por ejemplo, la disponibilidad de un dataset acotado para HU6; y la experiencia previa del alumno.
 
 \begin{itemize}
   \item \textbf{\'{E}pica 1 --- Perfilado de usuarios}
@@ -226,23 +226,23 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \begin{itemize}
   \item \textbf{\'{E}pica 1}
     \begin{itemize}
-      \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado (por ejemplo, ``champion'', ``en riesgo'', ``nuevo'').
-      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo.
+      \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado (por ejemplo, ``champion'', ``en riesgo'', ``nuevo''). \textit{Criterio de éxito:} al menos el 95\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
+      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. \textit{Criterio de éxito:} los atributos adicionales mejoran la separación entre segmentos (por ejemplo, mayor distancia o cohesión entre clusters) respecto de usar solo RFM.
     \end{itemize}
   \item \textbf{\'{E}pica 2}
     \begin{itemize}
-      \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente.
-      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido (por ejemplo, 0-1); (b) el score decrece de forma consistente ante menor evidencia disponible (por ejemplo, usuario cold-start); (c) existe un umbral configurable por debajo del cual la recomendación puede omitirse.
+      \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente. \textit{Criterio de éxito:} el ranking híbrido obtiene una métrica de calidad (por ejemplo, precision@10 o NDCG@10) superior a la de cualquiera de las tres señales evaluadas de forma aislada.
+      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido (por ejemplo, 0-1); (b) el score decrece de forma consistente ante menor evidencia disponible (por ejemplo, usuario cold-start); (c) existe un umbral configurable por debajo del cual la recomendación puede omitirse. \textit{Criterio de éxito:} aplicar el umbral de confianza reduce la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
     \end{itemize}
   \item \textbf{\'{E}pica 3}
     \begin{itemize}
-      \item \textbf{HU5}: (a) se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período); (b) se reporta al menos una métrica de calidad sobre un conjunto de validación; (c) el modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado.
-      \item \textbf{HU6}: (a) se declara explícitamente el dataset acotado utilizado para el ajuste; (b) se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero; (c) el proceso de ajuste es reproducible sobre el mismo dataset acotado.
+      \item \textbf{HU5}: (a) se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período); (b) se reporta al menos una métrica de calidad sobre un conjunto de validación; (c) el modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado. \textit{Criterio de éxito:} el modelo pre entrenado supera a un baseline aleatorio o de popularidad en la métrica de calidad reportada sobre el conjunto de validación.
+      \item \textbf{HU6}: (a) se declara explícitamente el dataset acotado utilizado para el ajuste; (b) se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero; (c) el proceso de ajuste es reproducible sobre el mismo dataset acotado. \textit{Criterio de éxito:} el modelo dedicado iguala o supera la métrica de calidad del modelo entrenado desde cero, usando el mismo dataset acotado (validando la ganancia del transfer learning).
     \end{itemize}
   \item \textbf{\'{E}pica 4}
     \begin{itemize}
-      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo de respuesta acotado (por ejemplo, menor a 2 segundos en la PoC); (c) ambos contratos se mantienen estables ante cambios internos del motor, versionándose si cambian.
-      \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite (usuario nuevo, ítem sin metadata) y cómo los maneja la PoC.
+      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo de respuesta acotado (por ejemplo, menor a 2 segundos en la PoC); (c) ambos contratos se mantienen estables ante cambios internos del motor, versionándose si cambian. \textit{Criterio de éxito:} el 100\% de las pruebas realizadas completan el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
+      \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite (usuario nuevo, ítem sin metadata) y cómo los maneja la PoC. \textit{Criterio de éxito:} al menos una conversación simulada de punta a punta concluye con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
     \end{itemize}
 \end{itemize}
 
