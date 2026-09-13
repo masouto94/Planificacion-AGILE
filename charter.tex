@@ -5,7 +5,7 @@
 
 
 % El títulos de la memoria, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \ttitle
-\titulo{Sistema de recomendación para retail aumentado por \textit{transfer learning}} 
+\titulo{Sistema de recomendación para retail aumentado por transfer learning} 
 
 % Nombre del posgrado, se usa en la carátula y se puede usar el cualquier lugar del documento con el comando \degreename
 %\posgrado{Carrera de Especialización en Sistemas Embebidos} 
@@ -16,7 +16,7 @@
 
 % Tu nombre, se puede usar el cualquier lugar del documento con el comando \authorname
 % IMPORTANTE: no omitir titulaciones ni tildación en los nombres, también se recomienda escribir los nombres completos (tal cual los tienen en su documento)
-\autor{Matías Agustín Souto}
+\autor{Lic. Matías Agustín Souto}
 
 % El nombre del director y co-director, se puede usar el cualquier lugar del documento con el comando \supname y \cosupname y \pertesupname y \pertecosupname
 \director{\textit{A definir}}
@@ -30,7 +30,7 @@
  
 \fechaINICIO{25 de agosto de 2026}		%Fecha de inicio de la cursada de GdP \fechaInicioName
 \fechaFINALPlan{13 de octubre de 2026} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{\textit{A definir}}	%Fecha de defensa pública del trabajo final
+\fechaFINALTrabajo{\textit{Abril de 2027}}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -60,10 +60,10 @@
 Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios realizados} & Fecha      \\ \hline
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
 1      & Se completa hasta el punto 5 inclusive                & 6 de septiembre de 2026 \\ \hline
-%2      & Se completa hasta el punto 9 inclusive
+2      & Se completa hasta el punto 9 inclusive & 13 de septiembre de 2026 \\ \hline
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
-%		  Así                                                    & {día} de {mes} de 202X \\ \hline
+%		  Así                                                    & {día} de {mes} de 202X \ \hline
 %3      & Se completa hasta el punto 12 inclusive                & {día} de {mes} de 202X \\ \hline
 %4      & Se completa el plan	                                 & {día} de {mes} de 202X \\ \hline
 
@@ -85,7 +85,7 @@ Buenos Aires, \fechaInicioName
 
 \vspace{2cm}
 
-Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en \textcolor{red}{la implementación de un prototipo de un sistema de recomendación para compras online con miras a embeberlo en un flujo conversacional}. El trabajo tendrá un presupuesto preliminar estimado de \textcolor{red}{600} horas y un costo, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública el \fechaFinalName.
+Por medio de la presente se acuerda con el \authorname\hspace{1px} que su Trabajo Final de la \degreename\hspace{1px} se titulará ``\ttitle'' y consistirá en la implementación del prototipo de un sistema de recomendación para compras online con miras a embeberlo en un flujo conversacional. El trabajo tendrá un presupuesto preliminar estimado de 600 horas y un costo, con fecha de inicio el \fechaInicioName\hspace{1px} y fecha de presentación pública en \fechaFinalName.
 
 Se adjunta a esta acta la planificación inicial.
 
@@ -121,7 +121,7 @@ En la figura \ref{fig:diagrama_basico} presento el diagrama en bloques del siste
 \centering
 \includegraphics[width=.65\textwidth]{./Figuras/diagrama_basico.png}
 \caption{Diagrama del sistema.}
-\label{fig:diagBloques}
+\label{fig:diagrama_basico}
 \end{figure}
 
 El alcance de este trabajo lo acoto al diseño e implementación del sistema de perfilado-recomendación y de su API, sin abarcar el desarrollo del flujo conversacional completo; no obstante, voy a construir una prueba de concepto que demuestre cómo un agente conversacional podría consumir dicha API en tiempo real. Entre los desafíos que identifico a priori se destacan: el sesgo introducido por utilizar reseñas como proxy de compra (solo observo al usuario cuando dejó una reseña), el problema de cold-start para usuarios e ítems nuevos, y la cobertura incompleta de metadata en parte del dataset, que voy a resolver filtrando o marcando los ítems afectados según la estrategia de splitting estándar del dataset.
@@ -156,7 +156,7 @@ A continuación detallo las principales características de cada interesado:
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
-Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de \textit{transfer learning}, que pueda integrarse como herramienta de un agente conversacional de compras. Busco que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Esto es una prueba de concepto con la cual pretendo demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, espero avanzar en mi propio desarrollo profesional dentro del área de inteligencia artificial conversacional.
+Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de transfer learning, que pueda integrarse como herramienta de un agente conversacional de compras. Busco que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Esto es una prueba de concepto con la cual pretendo demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, espero avanzar en mi propio desarrollo profesional dentro del área de inteligencia artificial conversacional.
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
