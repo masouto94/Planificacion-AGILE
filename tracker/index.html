@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlog &amp; WBS Tracker</title>
+<style>
+  :root {
+    --bg: #f7f7f8;
+    --panel: #ffffff;
+    --text: #1a1a1a;
+    --muted: #666666;
+    --border: #e2e2e5;
+    --accent: #3457d5;
+    --pendiente: #9aa0a6;
+    --progreso: #f2a900;
+    --hecho: #2e9e4e;
+    --alta: #c62828;
+    --media: #e08a00;
+    --baja: #2e7d32;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14151a;
+      --panel: #1d1f26;
+      --text: #ececec;
+      --muted: #9aa0a8;
+      --border: #2c2f38;
+      --accent: #7c93ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.4;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    z-index: 10;
+  }
+  header h1 { margin: 0 0 4px; font-size: 20px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  button {
+    font: inherit;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    cursor: pointer;
+  }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  button:hover { filter: brightness(0.95); }
+  input[type=file] { display: none; }
+  .progress-overall {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .bar {
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .bar > div {
+    height: 100%;
+    background: var(--hecho);
+    transition: width .2s ease;
+  }
+  main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .epica {
+    margin-bottom: 24px;
+  }
+  .epica > h2 {
+    font-size: 16px;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .hu {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .hu-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hu-head h3 { margin: 0; font-size: 14px; }
+  .hu-desc { color: var(--muted); font-size: 13px; margin: 4px 0 10px; }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 7px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .badge.alta { color: var(--alta); border-color: var(--alta); }
+  .badge.media { color: var(--media); border-color: var(--media); }
+  .badge.baja { color: var(--baja); border-color: var(--baja); }
+  ul.tasks { list-style: none; margin: 0; padding: 0; }
+  ul.tasks li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    border-top: 1px solid var(--border);
+    font-size: 13.5px;
+  }
+  ul.tasks li:first-child { border-top: none; }
+  .status-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--pendiente);
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+  .status-dot[data-status="en_progreso"] { background: var(--progreso); border-color: var(--progreso); }
+  .status-dot[data-status="hecho"] { background: var(--hecho); border-color: var(--hecho); }
+  .task-text { flex: 1 1 auto; }
+  .task-text.done { text-decoration: line-through; color: var(--muted); }
+  .hu-progress { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  footer {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Sistema de recomendación para retail — Backlog &amp; WBS</h1>
+  <p>Estado guardado en tu navegador (localStorage). Exportá a JSON para versionarlo en el repo.</p>
+  <div class="toolbar">
+    <button class="primary" id="btn-export">Exportar JSON</button>
+    <button id="btn-import">Importar JSON</button>
+    <button id="btn-reset">Reiniciar</button>
+    <input type="file" id="file-input" accept="application/json">
+  </div>
+  <div class="progress-overall">
+    <span id="overall-label"></span>
+    <div class="bar"><div id="overall-bar"></div></div>
+  </div>
+</header>
+<main id="app"></main>
+<footer>
+  tracker/index.html — no requiere servidor ni base de datos externa. El botón "Exportar JSON" descarga <code>status.json</code>;
+  reemplazá el archivo en <code>tracker/status.json</code> y commiteá para versionar el progreso.
+</footer>
+
+<script>
+const DATA = [
+  { id: "e1", nombre: "Épica 1 — Perfilado de usuarios", hus: [
+    { id: "hu1", titulo: "HU1", prioridad: "Alta", sp: 8,
+      desc: "Como sistema de perfilado, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.",
+      tareas: [
+        { t: "Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario", h: 4, p: "Alta" },
+        { t: "Extraer y limpiar los campos necesarios por usuario (fecha de reseña, rating/monto, producto)", h: 4, p: "Alta" },
+        { t: "Calcular recencia y frecuencia por usuario", h: 3, p: "Alta" },
+        { t: "Calcular valor monetario (o proxy, dado que el dataset son reseñas) por usuario", h: 3, p: "Alta" },
+        { t: "Detectar y tratar outliers en las variables RFM (usuarios con actividad atípica)", h: 4, p: "Media" },
+        { t: "Normalizar las tres variables en una escala común y validar reproducibilidad", h: 3, p: "Alta" },
+        { t: "Definir umbrales/quantiles de segmentación RFM y documentar los segmentos resultantes", h: 4, p: "Alta" }
+      ]
+    },
+    { id: "hu2", titulo: "HU2", prioridad: "Media", sp: 5,
+      desc: "Como sistema de perfilado, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales para mejorar la calidad de la segmentación.",
+      tareas: [
+        { t: "Explorar candidatos de atributos de comportamiento adicionales (categorías frecuentes, recencia por categoría, diversidad de compra)", h: 3, p: "Media" },
+        { t: "Diseñar el modelo de datos (esquema) del objeto “Perfil de Usuario”, integrando RFM y atributos seleccionados", h: 4, p: "Alta" },
+        { t: "Calcular los atributos seleccionados por usuario", h: 4, p: "Media" },
+        { t: "Validar que los nuevos atributos no dupliquen información ya cubierta por RFM (correlación, redundancia)", h: 3, p: "Media" },
+        { t: "Integrar los atributos calculados en el objeto Perfil de Usuario y documentar su rango esperado", h: 3, p: "Media" }
+      ]
+    }
+  ]},
+  { id: "e2", nombre: "Épica 2 — Motor de recomendación híbrido", hus: [
+    { id: "hu3", titulo: "HU3", prioridad: "Alta", sp: 13,
+      desc: "Como recomendador, quiero combinar señales colaborativas, de contenido y de co-compra en un único ranking de ítems para ofrecer recomendaciones más relevantes que un solo enfoque aislado.",
+      tareas: [
+        { t: "Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata", h: 4, p: "Alta" },
+        { t: "Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem)", h: 3, p: "Alta" },
+        { t: "Explorar y entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas", h: 8, p: "Alta" },
+        { t: "Construir una señal de contenido, buscando ítems similares entre sí a partir de su metadata (categoría, atributos, descripción)", h: 8, p: "Alta" },
+        { t: "Construir una señal de co-compra, identificando qué ítems suelen comprarse juntos a partir de la tabla de co-compra", h: 6, p: "Alta" },
+        { t: "Diseñar y entrenar un modelo dedicado (ranker) que combine las tres señales en un único score de recomendación", h: 8, p: "Alta" },
+        { t: "Filtrar del ranking final los ítems ya comprados/reseñados por el usuario, salvo pedido explícito", h: 2, p: "Media" }
+      ]
+    },
+    { id: "hu4", titulo: "HU4", prioridad: "Media", sp: 5,
+      desc: "Como recomendador, quiero exponer un score de confianza por recomendación para que el agente conversacional pueda decidir cuándo mostrarla u ofrecer alternativas.",
+      tareas: [
+        { t: "Definir qué señales de evidencia disponible se usan para estimar la confianza (señales activas, cobertura de datos, cold-start)", h: 3, p: "Media" },
+        { t: "Diseñar la fórmula o heurística de score de confianza en función de esas señales", h: 3, p: "Media" },
+        { t: "Implementar el cálculo del score y exponerlo junto con cada recomendación", h: 3, p: "Media" },
+        { t: "Definir y calibrar un umbral configurable por debajo del cual la recomendación se omite o se reemplaza por un fallback", h: 4, p: "Media" }
+      ]
+    }
+  ]},
+  { id: "e3", nombre: "Épica 3 — Transfer learning entre modelos", hus: [
+    { id: "hu5", titulo: "HU5", prioridad: "Alta", sp: 13,
+      desc: "Como responsable del proyecto, quiero entrenar un modelo “pre entrenado” sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.",
+      tareas: [
+        { t: "Consolidar el perfilador (HU1/HU2) y el recomendador híbrido (HU3/HU4), entrenados sobre Amazon Reviews'23, como un único artefacto “modelo pre entrenado”", h: 4, p: "Alta" },
+        { t: "Evaluar el modelo pre entrenado de punta a punta (perfilado + recomendación) con una métrica de calidad sobre un conjunto de validación", h: 5, p: "Alta" },
+        { t: "Versionar y persistir los artefactos del modelo pre entrenado para que el modelo dedicado (HU6) pueda reutilizarlos", h: 3, p: "Media" }
+      ]
+    },
+    { id: "hu6", titulo: "HU6", prioridad: "Alta", sp: 13,
+      desc: "Como responsable del proyecto, quiero ajustar un modelo “dedicado” a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.",
+      tareas: [
+        { t: "Identificar o construir un dataset más acotado (menor volumen o riqueza de atributos) adecuado para el ajuste", h: 6, p: "Alta" },
+        { t: "Definir el alcance del modelo dedicado: qué componentes del modelo pre entrenado se reutilizan y cuáles se reentrenan/ajustan", h: 4, p: "Alta" },
+        { t: "Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado", h: 8, p: "Alta" },
+        { t: "Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, para tener con qué comparar", h: 6, p: "Alta" },
+        { t: "Comparar las métricas de calidad entre el modelo dedicado y el modelo entrenado desde cero, y documentar la diferencia", h: 4, p: "Alta" },
+        { t: "Validar que el proceso de ajuste es reproducible sobre el mismo dataset acotado", h: 3, p: "Media" }
+      ]
+    }
+  ]},
+  { id: "e4", nombre: "Épica 4 — Exposición vía API y prueba de concepto", hus: [
+    { id: "hu7", titulo: "HU7", prioridad: "Alta", sp: 8,
+      desc: "Como agente conversacional, quiero consultar get_profile(user) y recommend(context) a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.",
+      tareas: [
+        { t: "Diseñar y documentar el contrato de get_profile(user) (esquema de entrada/salida)", h: 3, p: "Alta" },
+        { t: "Diseñar y documentar el contrato de recommend(context) (esquema de entrada/salida)", h: 3, p: "Alta" },
+        { t: "Implementar el endpoint get_profile(user) sobre el perfilador", h: 4, p: "Alta" },
+        { t: "Implementar el endpoint recommend(context) sobre el recomendador", h: 4, p: "Alta" },
+        { t: "Definir una estrategia de versionado del contrato ante cambios internos del motor", h: 3, p: "Media" },
+        { t: "Probar ambos endpoints de punta a punta (tiempos de respuesta, formatos) y documentar", h: 3, p: "Alta" }
+      ]
+    },
+    { id: "hu8", titulo: "HU8", prioridad: "Media", sp: 8,
+      desc: "Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada (PoC con API de Claude) para validar que el sistema funciona de punta a punta.",
+      tareas: [
+        { t: "Diseñar el flujo conversacional básico de la PoC (saludo, búsqueda, recomendación, cierre)", h: 3, p: "Media" },
+        { t: "Implementar el agente orquestador sobre la API de Claude, con las tools get_profile/recommend definidas", h: 6, p: "Media" },
+        { t: "Integrar el agente con la API del motor (llamadas reales a get_profile/recommend)", h: 4, p: "Media" },
+        { t: "Definir usuarios y escenarios de prueba simulados (usuario recurrente, usuario nuevo/cold-start, ítem sin metadata)", h: 3, p: "Media" },
+        { t: "Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción)", h: 2, p: "Media" },
+        { t: "Documentar cómo la PoC maneja los casos límite identificados", h: 2, p: "Media" }
+      ]
+    }
+  ]}
+];
+
+const STORAGE_KEY = "backlog_wbs_status_v1";
+const STATES = ["pendiente", "en_progreso", "hecho"];
+
+function taskId(huId, idx) { return huId + "-t" + idx; }
+
+function loadStatus() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return {};
+}
+
+function saveStatus(status) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(status)); } catch (e) {}
+}
+
+let status = loadStatus();
+
+function cycle(id) {
+  const cur = status[id] || "pendiente";
+  const next = STATES[(STATES.indexOf(cur) + 1) % STATES.length];
+  status[id] = next;
+  saveStatus(status);
+  render();
+}
+
+function priorityClass(p) {
+  if (p === "Alta") return "alta";
+  if (p === "Media") return "media";
+  return "baja";
+}
+
+function computeProgress(taskList) {
+  let doneH = 0, totalH = 0, doneN = 0;
+  taskList.forEach(({ id, h }) => {
+    totalH += h;
+    if (status[id] === "hecho") { doneH += h; doneN++; }
+  });
+  return { doneH, totalH, doneN, total: taskList.length };
+}
+
+function render() {
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  const allTasks = [];
+
+  DATA.forEach(epica => {
+    const epicaEl = document.createElement("section");
+    epicaEl.className = "epica";
+    const h2 = document.createElement("h2");
+    h2.textContent = epica.nombre;
+    epicaEl.appendChild(h2);
+
+    epica.hus.forEach(hu => {
+      const huTasks = hu.tareas.map((tk, i) => ({ ...tk, id: taskId(hu.id, i) }));
+      huTasks.forEach(tk => allTasks.push(tk));
+      const prog = computeProgress(huTasks);
+
+      const huEl = document.createElement("div");
+      huEl.className = "hu";
+
+      const head = document.createElement("div");
+      head.className = "hu-head";
+      head.innerHTML = `<h3>${hu.titulo}</h3>
+        <span class="badge ${priorityClass(hu.prioridad)}">${hu.prioridad} · ${hu.sp} SP</span>`;
+      huEl.appendChild(head);
+
+      const desc = document.createElement("div");
+      desc.className = "hu-desc";
+      desc.textContent = hu.desc;
+      huEl.appendChild(desc);
+
+      const progLine = document.createElement("div");
+      progLine.className = "hu-progress";
+      progLine.textContent = `${prog.doneN}/${prog.total} tareas · ${prog.doneH}/${prog.totalH} h`;
+      huEl.appendChild(progLine);
+
+      const ul = document.createElement("ul");
+      ul.className = "tasks";
+      huTasks.forEach(tk => {
+        const li = document.createElement("li");
+        const st = status[tk.id] || "pendiente";
+        const dot = document.createElement("span");
+        dot.className = "status-dot";
+        dot.dataset.status = st;
+        dot.title = "Click para cambiar estado (pendiente / en progreso / hecho)";
+        dot.onclick = () => cycle(tk.id);
+        const text = document.createElement("span");
+        text.className = "task-text" + (st === "hecho" ? " done" : "");
+        text.textContent = tk.t;
+        const hBadge = document.createElement("span");
+        hBadge.className = "badge";
+        hBadge.textContent = tk.h + " h";
+        const pBadge = document.createElement("span");
+        pBadge.className = "badge " + priorityClass(tk.p);
+        pBadge.textContent = tk.p;
+        li.appendChild(dot);
+        li.appendChild(text);
+        li.appendChild(hBadge);
+        li.appendChild(pBadge);
+        ul.appendChild(li);
+      });
+      huEl.appendChild(ul);
+      epicaEl.appendChild(huEl);
+    });
+
+    app.appendChild(epicaEl);
+  });
+
+  const overall = computeProgress(allTasks);
+  document.getElementById("overall-label").textContent =
+    `Progreso total: ${overall.doneN}/${overall.total} tareas · ${overall.doneH}/${overall.totalH} h (${overall.totalH ? Math.round(100 * overall.doneH / overall.totalH) : 0}%)`;
+  document.getElementById("overall-bar").style.width =
+    (overall.totalH ? (100 * overall.doneH / overall.totalH) : 0) + "%";
+}
+
+document.getElementById("btn-export").onclick = () => {
+  const blob = new Blob([JSON.stringify(status, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "status.json";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+document.getElementById("btn-import").onclick = () => {
+  document.getElementById("file-input").click();
+};
+
+document.getElementById("file-input").onchange = (ev) => {
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      status = parsed;
+      saveStatus(status);
+      render();
+    } catch (e) {
+      alert("El archivo no es un JSON válido: " + e.message);
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value = "";
+};
+
+document.getElementById("btn-reset").onclick = () => {
+  if (!confirm("¿Reiniciar todo el progreso a 'pendiente'? Esto no afecta a status.json ya exportado.")) return;
+  status = {};
+  saveStatus(status);
+  render();
+};
+
+// Intento de carga automática de tracker/status.json si la página se sirve por http(s).
+// Si se abre como file:// muchos navegadores bloquean el fetch; se ignora el error y se
+// usa el estado guardado en localStorage (o el default "pendiente").
+(async () => {
+  if (Object.keys(status).length === 0) {
+    try {
+      const res = await fetch("./status.json", { cache: "no-store" });
+      if (res.ok) {
+        const parsed = await res.json();
+        status = parsed;
+        saveStatus(status);
+      }
+    } catch (e) { /* file:// o no existe todavía: se ignora */ }
+  }
+  render();
+})();
+</script>
+</body>
+</html>
