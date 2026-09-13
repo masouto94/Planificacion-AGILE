@@ -185,7 +185,7 @@ const DATA = [
       desc: "Como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.",
       tareas: [
         { t: "Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario", h: 4, p: "Alta" },
-        { t: "Extraer y limpiar los campos necesarios por usuario (fecha de reseña, rating/monto, producto)", h: 4, p: "Alta" },
+        { t: "Extraer y limpiar la fecha de reseña, el rating o monto, y el producto de cada reseña por usuario", h: 4, p: "Alta" },
         { t: "Calcular recencia y frecuencia por usuario", h: 3, p: "Alta" },
         { t: "Calcular valor monetario (o proxy, dado que el dataset son reseñas) por usuario", h: 3, p: "Alta" },
         { t: "Detectar y tratar outliers en las variables RFM (usuarios con actividad atípica)", h: 4, p: "Media" },
@@ -196,10 +196,10 @@ const DATA = [
     { id: "hu2", titulo: "HU2", prioridad: "Media", sp: 5,
       desc: "Como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.",
       tareas: [
-        { t: "Explorar candidatos de atributos de comportamiento adicionales (categorías frecuentes, recencia por categoría, diversidad de compra)", h: 3, p: "Media" },
+        { t: "Explorar candidatos de atributos de comportamiento adicionales, como categorías frecuentes, recencia por categoría y diversidad de compra", h: 3, p: "Media" },
         { t: "Diseñar el modelo de datos (esquema) del objeto “Perfil de Usuario”, integrando RFM y atributos seleccionados", h: 4, p: "Alta" },
         { t: "Calcular los atributos seleccionados por usuario", h: 4, p: "Media" },
-        { t: "Validar que los nuevos atributos no dupliquen información ya cubierta por RFM (correlación, redundancia)", h: 3, p: "Media" },
+        { t: "Validar, mediante un análisis de correlación y redundancia, que los nuevos atributos no dupliquen información ya cubierta por RFM", h: 3, p: "Media" },
         { t: "Integrar los atributos calculados en el objeto Perfil de Usuario y documentar su rango esperado", h: 3, p: "Media" }
       ]
     }
@@ -211,7 +211,7 @@ const DATA = [
         { t: "Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata", h: 4, p: "Alta" },
         { t: "Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem)", h: 3, p: "Alta" },
         { t: "Explorar y entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas", h: 8, p: "Alta" },
-        { t: "Construir una señal de contenido, buscando ítems similares entre sí a partir de su metadata (categoría, atributos, descripción)", h: 8, p: "Alta" },
+        { t: "Construir una señal de contenido, buscando ítems similares entre sí a partir de su categoría, sus atributos y su descripción", h: 8, p: "Alta" },
         { t: "Construir una señal de co-compra, identificando qué ítems suelen comprarse juntos a partir de la tabla de co-compra", h: 6, p: "Alta" },
         { t: "Diseñar y entrenar un modelo dedicado (ranker) que combine las tres señales en un único score de recomendación", h: 8, p: "Alta" },
         { t: "Filtrar del ranking final los ítems ya comprados/reseñados por el usuario, salvo pedido explícito", h: 2, p: "Media" }
@@ -220,7 +220,7 @@ const DATA = [
     { id: "hu4", titulo: "HU4", prioridad: "Media", sp: 5,
       desc: "Como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.",
       tareas: [
-        { t: "Definir qué señales de evidencia disponible se usan para estimar la confianza (señales activas, cobertura de datos, cold-start)", h: 3, p: "Media" },
+        { t: "Definir qué señales de evidencia disponible se usan para estimar la confianza, como la cantidad de señales activas, la cobertura de datos o el cold-start", h: 3, p: "Media" },
         { t: "Diseñar la fórmula o heurística de score de confianza en función de esas señales", h: 3, p: "Media" },
         { t: "Implementar el cálculo del score y exponerlo junto con cada recomendación", h: 3, p: "Media" },
         { t: "Definir y calibrar un umbral configurable por debajo del cual la recomendación se omite o se reemplaza por un fallback", h: 4, p: "Media" }
@@ -239,7 +239,7 @@ const DATA = [
     { id: "hu6", titulo: "HU6", prioridad: "Alta", sp: 13,
       desc: "Como responsable del proyecto, quiero ajustar un modelo “dedicado” a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.",
       tareas: [
-        { t: "Identificar o construir un dataset más acotado (menor volumen o riqueza de atributos) adecuado para el ajuste", h: 6, p: "Alta" },
+        { t: "Identificar o construir un dataset más acotado, con menor volumen o riqueza de atributos, adecuado para el ajuste", h: 6, p: "Alta" },
         { t: "Definir el alcance del modelo dedicado: qué componentes del modelo pre entrenado se reutilizan y cuáles se reentrenan/ajustan", h: 4, p: "Alta" },
         { t: "Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado", h: 8, p: "Alta" },
         { t: "Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, para tener con qué comparar", h: 6, p: "Alta" },
@@ -257,18 +257,18 @@ const DATA = [
         { t: "Implementar el endpoint get_profile(user) sobre el perfilador", h: 4, p: "Alta" },
         { t: "Implementar el endpoint recommend(context) sobre el recomendador", h: 4, p: "Alta" },
         { t: "Definir una estrategia de versionado del contrato ante cambios internos del motor", h: 3, p: "Media" },
-        { t: "Probar ambos endpoints de punta a punta (tiempos de respuesta, formatos) y documentar", h: 3, p: "Alta" }
+        { t: "Probar ambos endpoints de punta a punta, midiendo tiempos de respuesta y formatos, y documentar los resultados", h: 3, p: "Alta" }
       ]
     },
     { id: "hu8", titulo: "HU8", prioridad: "Media", sp: 8,
-      desc: "Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada (PoC con API de Claude) para validar que el sistema funciona de punta a punta.",
+      desc: "Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada. Esto se hará mediante una prueba de concepto con una API vía Claude para validar que el sistema funciona de punta a punta.",
       tareas: [
-        { t: "Diseñar el flujo conversacional básico de la PoC (saludo, búsqueda, recomendación, cierre)", h: 3, p: "Media" },
+        { t: "Diseñar el flujo conversacional básico de la prueba de concepto, que incluye saludo, búsqueda, recomendación y cierre", h: 3, p: "Media" },
         { t: "Implementar el agente orquestador sobre la API de Claude, con las tools get_profile/recommend definidas", h: 6, p: "Media" },
         { t: "Integrar el agente con la API del motor (llamadas reales a get_profile/recommend)", h: 4, p: "Media" },
-        { t: "Definir usuarios y escenarios de prueba simulados (usuario recurrente, usuario nuevo/cold-start, ítem sin metadata)", h: 3, p: "Media" },
+        { t: "Definir escenarios de prueba simulados que cubran un usuario recurrente, un usuario nuevo o cold-start, y un ítem sin metadata", h: 3, p: "Media" },
         { t: "Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción)", h: 2, p: "Media" },
-        { t: "Documentar cómo la PoC maneja los casos límite identificados", h: 2, p: "Media" }
+        { t: "Documentar cómo la prueba de concepto maneja los casos límite identificados", h: 2, p: "Media" }
       ]
     }
   ]}

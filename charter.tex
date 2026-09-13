@@ -226,13 +226,13 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \begin{itemize}
   \item \textbf{\'{E}pica 1}
     \begin{itemize}
-      \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado (por ejemplo, ``champion'', ``en riesgo'', ``nuevo''). \textit{Criterio de éxito:} al menos el 95\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
-      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. \textit{Criterio de éxito:} los atributos adicionales mejoran la separación entre segmentos (por ejemplo, mayor distancia o cohesión entre clusters) respecto de usar solo RFM.
+      \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''. \textit{Criterio de éxito:} al menos el 95\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
+      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. \textit{Criterio de éxito:} los atributos adicionales mejoran la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clusters.
     \end{itemize}
   \item \textbf{\'{E}pica 2}
     \begin{itemize}
-      \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente. \textit{Criterio de éxito:} el ranking híbrido obtiene una métrica de calidad (por ejemplo, precision@10 o NDCG@10) superior a la de cualquiera de las tres señales evaluadas de forma aislada.
-      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido (por ejemplo, 0-1); (b) el score decrece de forma consistente ante menor evidencia disponible (por ejemplo, usuario cold-start); (c) existe un umbral configurable por debajo del cual la recomendación puede omitirse. \textit{Criterio de éxito:} aplicar el umbral de confianza reduce la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
+      \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente. \textit{Criterio de éxito:} el ranking híbrido obtiene una métrica de calidad superior a la de cualquiera de las tres señales evaluadas de forma aislada. Por ejemplo, mejor precisión de clasificación (precision@10) o mejor NDCG@10.
+      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí; (b) el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo; (c) existe un umbral configurable por debajo del cual la recomendación puede omitirse. \textit{Criterio de éxito:} aplicar el umbral de confianza reduce la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
     \end{itemize}
   \item \textbf{\'{E}pica 3}
     \begin{itemize}
@@ -241,18 +241,18 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
     \end{itemize}
   \item \textbf{\'{E}pica 4}
     \begin{itemize}
-      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo de respuesta acotado (por ejemplo, menor a 2 segundos en la PoC); (c) ambos contratos se mantienen estables ante cambios internos del motor, versionándose si cambian. \textit{Criterio de éxito:} el 100\% de las pruebas realizadas completan el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
-      \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite (usuario nuevo, ítem sin metadata) y cómo los maneja la PoC. \textit{Criterio de éxito:} al menos una conversación simulada de punta a punta concluye con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
+      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto; (c) ambos contratos se mantienen estables ante cambios internos del motor, versionándose si cambian. \textit{Criterio de éxito:} el 100\% de las pruebas realizadas completan el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
+      \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto. \textit{Criterio de éxito:} al menos una conversación simulada de punta a punta concluye con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
     \end{itemize}
 \end{itemize}
 
 \section{8. Fases de CRISP-DM}
 
 \begin{enumerate}
-  \item \textbf{Comprensión del negocio:} el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail; el valor agregado de la IA es habilitar una experiencia de vendedor proactivo; las métricas de éxito son la calidad de las recomendaciones (por ejemplo, precision@k) y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
-  \item \textbf{Comprensión de los datos:} el dataset principal es Amazon Reviews'23 (reseñas, calificaciones y metadata de productos); se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
-  \item \textbf{Preparación de los datos:} construcción de las features RFM por usuario, filtrado o marcado de ítems con metadata incompleta, y diseño del esquema de persistencia en PostgreSQL (reviews, perfiles, ítems en JSONB, tabla de co-compra).
-  \item \textbf{Modelado:} se aborda como un problema híbrido de perfilado (segmentación RFM) y recomendación (colaborativo + contenido + co-compra), aplicando transfer learning entre un modelo pre entrenado (dataset extenso) y un modelo dedicado (dataset acotado).
+  \item \textbf{Comprensión del negocio:} el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail; el valor agregado de la IA es habilitar una experiencia de vendedor proactivo; las métricas de éxito son la calidad de las recomendaciones y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
+  \item \textbf{Comprensión de los datos:} el dataset principal es Amazon Reviews'23, que contiene reseñas, calificaciones y metadata de productos; se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
+  \item \textbf{Preparación de los datos:} construcción de las features RFM por usuario, filtrado o marcado de ítems con metadata incompleta, y diseño del esquema de persistencia en PostgreSQL, que incluye reviews, perfiles, ítems en formato JSONB y una tabla de co-compra.
+  \item \textbf{Modelado:} el modelado se aborda como un problema híbrido, combinando perfilado mediante segmentación RFM y recomendación mediante enfoques colaborativo, de contenido y de co-compra. Además, se aplica transfer learning entre un modelo pre entrenado sobre un dataset extenso y un modelo dedicado ajustado sobre un dataset acotado.
   \item \textbf{Evaluación del modelo:} se mide la calidad de los rankings de recomendación y de la segmentación RFM, comparando el modelo dedicado contra una versión entrenada desde cero para validar la ganancia del transfer learning.
   \item \textbf{Despliegue del modelo (opcional):} para esta prueba de concepto, el despliegue se limita a exponer el motor vía una API simple consumida por un agente conversacional de prueba (API sobre Claude), sin publicación en infraestructura productiva.
 \end{enumerate}
@@ -260,7 +260,7 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
 
-A partir de las historias de usuario definidas en la sección 6, se descompone el trabajo en tareas técnicas concretas y acotadas en el tiempo. El criterio de estimación considera la complejidad técnica, el nivel de incertidumbre (por ejemplo, la disponibilidad de un dataset acotado para el modelo dedicado) y la experiencia previa del alumno; la prioridad de cada tarea depende de su relevancia funcional y de si resulta bloqueante para otras tareas.
+A partir de las historias de usuario definidas en la sección 6, se descompone el trabajo en tareas técnicas concretas y acotadas en el tiempo. El criterio de estimación considera la complejidad técnica, el nivel de incertidumbre, como la disponibilidad de un dataset acotado para el modelo dedicado, y la experiencia previa del alumno; la prioridad de cada tarea depende de su relevancia funcional y de si resulta bloqueante para otras tareas.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.60\linewidth}|>{\centering\arraybackslash}p{0.12\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|}
 \hline
@@ -272,32 +272,32 @@ Historia de usuario & Tarea técnica & Estimación & Prioridad \\ \hline
 Historia de usuario & Tarea técnica & Estimación & Prioridad \\ \hline
 \endhead
 HU1 & Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario & 4 h & Alta \\ \hline
-HU1 & Extraer y limpiar los campos necesarios por usuario (fecha de reseña, rating/monto, producto) & 4 h & Alta \\ \hline
+HU1 & Extraer y limpiar la fecha de reseña, el rating o monto, y el producto de cada reseña por usuario & 4 h & Alta \\ \hline
 HU1 & Calcular recencia y frecuencia por usuario & 3 h & Alta \\ \hline
 HU1 & Calcular valor monetario (o proxy, dado que el dataset son reseñas) por usuario & 3 h & Alta \\ \hline
 HU1 & Detectar y tratar outliers en las variables RFM (usuarios con actividad atípica) & 4 h & Media \\ \hline
 HU1 & Normalizar las tres variables en una escala común y validar reproducibilidad & 3 h & Alta \\ \hline
 HU1 & Definir umbrales/quantiles de segmentación RFM y documentar los segmentos resultantes & 4 h & Alta \\ \hline
-HU2 & Explorar candidatos de atributos de comportamiento adicionales (categorías frecuentes, recencia por categoría, diversidad de compra) & 3 h & Media \\ \hline
+HU2 & Explorar candidatos de atributos de comportamiento adicionales, como categorías frecuentes, recencia por categoría y diversidad de compra & 3 h & Media \\ \hline
 HU2 & Diseñar el modelo de datos (esquema) del objeto ``Perfil de Usuario'', integrando las variables RFM y los atributos seleccionados & 4 h & Alta \\ \hline
 HU2 & Calcular los atributos seleccionados por usuario & 4 h & Media \\ \hline
-HU2 & Validar que los nuevos atributos no dupliquen información ya cubierta por RFM (correlación, redundancia) & 3 h & Media \\ \hline
+HU2 & Validar, mediante un análisis de correlación y redundancia, que los nuevos atributos no dupliquen información ya cubierta por RFM & 3 h & Media \\ \hline
 HU2 & Integrar los atributos calculados en el objeto Perfil de Usuario y documentar su rango esperado & 3 h & Media \\ \hline
 HU3 & Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata & 4 h & Alta \\ \hline
 HU3 & Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem) & 3 h & Alta \\ \hline
 HU3 & Explorar y entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas & 8 h & Alta \\ \hline
-HU3 & Construir una señal de contenido, buscando ítems similares entre sí a partir de su metadata (categoría, atributos, descripción) & 8 h & Alta \\ \hline
+HU3 & Construir una señal de contenido, buscando ítems similares entre sí a partir de su categoría, sus atributos y su descripción & 8 h & Alta \\ \hline
 HU3 & Construir una señal de co-compra, identificando qué ítems suelen comprarse juntos a partir de la tabla de co-compra & 6 h & Alta \\ \hline
 HU3 & Diseñar y entrenar un modelo dedicado (ranker) que combine las tres señales en un único score de recomendación & 8 h & Alta \\ \hline
 HU3 & Filtrar del ranking final los ítems ya comprados/reseñados por el usuario, salvo pedido explícito & 2 h & Media \\ \hline
-HU4 & Definir qué señales de evidencia disponible se usan para estimar la confianza (señales activas, cobertura de datos, cold-start) & 3 h & Media \\ \hline
+HU4 & Definir qué señales de evidencia disponible se usan para estimar la confianza, como la cantidad de señales activas, la cobertura de datos o el cold-start & 3 h & Media \\ \hline
 HU4 & Diseñar la fórmula o heurística de score de confianza en función de esas señales & 3 h & Media \\ \hline
 HU4 & Implementar el cálculo del score y exponerlo junto con cada recomendación & 3 h & Media \\ \hline
 HU4 & Definir y calibrar un umbral configurable por debajo del cual la recomendación se omite o se reemplaza por un fallback & 4 h & Media \\ \hline
 HU5 & Consolidar el perfilador (HU1/HU2) y el recomendador híbrido (HU3/HU4), entrenados sobre Amazon Reviews'23, como un único artefacto ``modelo pre entrenado'' & 4 h & Alta \\ \hline
 HU5 & Evaluar el modelo pre entrenado de punta a punta (perfilado + recomendación) con una métrica de calidad sobre un conjunto de validación & 5 h & Alta \\ \hline
 HU5 & Versionar y persistir los artefactos del modelo pre entrenado para que el modelo dedicado (HU6) pueda reutilizarlos & 3 h & Media \\ \hline
-HU6 & Identificar o construir un dataset más acotado (menor volumen o riqueza de atributos) adecuado para el ajuste & 6 h & Alta \\ \hline
+HU6 & Identificar o construir un dataset más acotado, con menor volumen o riqueza de atributos, adecuado para el ajuste & 6 h & Alta \\ \hline
 HU6 & Definir el alcance del modelo dedicado: qué componentes del pre entrenado se reutilizan y cuáles se reentrenan/ajustan & 4 h & Alta \\ \hline
 HU6 & Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado & 8 h & Alta \\ \hline
 HU6 & Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, para tener con qué comparar & 6 h & Alta \\ \hline
@@ -308,13 +308,13 @@ HU7 & Diseñar y documentar el contrato de \texttt{recommend(context)} (esquema 
 HU7 & Implementar el endpoint \texttt{get\_profile(user)} sobre el perfilador & 4 h & Alta \\ \hline
 HU7 & Implementar el endpoint \texttt{recommend(context)} sobre el recomendador & 4 h & Alta \\ \hline
 HU7 & Definir una estrategia de versionado del contrato ante cambios internos del motor & 3 h & Media \\ \hline
-HU7 & Probar ambos endpoints de punta a punta (tiempos de respuesta, formatos) y documentar & 3 h & Alta \\ \hline
-HU8 & Diseñar el flujo conversacional básico de la PoC (saludo, búsqueda, recomendación, cierre) & 3 h & Media \\ \hline
+HU7 & Probar ambos endpoints de punta a punta, midiendo tiempos de respuesta y formatos, y documentar los resultados & 3 h & Alta \\ \hline
+HU8 & Diseñar el flujo conversacional básico de la prueba de concepto, que incluye saludo, búsqueda, recomendación y cierre & 3 h & Media \\ \hline
 HU8 & Implementar el agente orquestador sobre la API de Claude, con las tools \texttt{get\_profile}/\texttt{recommend} definidas & 6 h & Media \\ \hline
 HU8 & Integrar el agente con la API del motor (llamadas reales a \texttt{get\_profile}/\texttt{recommend}) & 4 h & Media \\ \hline
-HU8 & Definir usuarios y escenarios de prueba simulados (usuario recurrente, usuario nuevo/cold-start, ítem sin metadata) & 3 h & Media \\ \hline
+HU8 & Definir escenarios de prueba simulados que cubran un usuario recurrente, un usuario nuevo o cold-start, y un ítem sin metadata & 3 h & Media \\ \hline
 HU8 & Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción) & 2 h & Media \\ \hline
-HU8 & Documentar cómo la PoC maneja los casos límite identificados & 2 h & Media \\ \hline
+HU8 & Documentar cómo la prueba de concepto maneja los casos límite identificados & 2 h & Media \\ \hline
 \caption{Desglose de tareas por historia de usuario. Total estimado: 177 h.}
 \end{longtable}
 
