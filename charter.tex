@@ -201,7 +201,7 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
   \item \textbf{\'{E}pica 1 --- Perfilado de usuarios}
     \begin{itemize}
       \item \textbf{HU1} (Prioridad: Alta, 8 SP): Como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.
-      \item \textbf{HU2} (Prioridad: Media, 5 SP): Como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales (categorías más frecuentes, recencia por categoría) para mejorar la calidad de la segmentación.
+      \item \textbf{HU2} (Prioridad: Media, 5 SP): Como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.
     \end{itemize}
   \item \textbf{\'{E}pica 2 --- Motor de recomendación híbrido}
     \begin{itemize}
@@ -210,13 +210,13 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
     \end{itemize}
   \item \textbf{\'{E}pica 3 --- Transfer learning entre modelos}
     \begin{itemize}
-      \item \textbf{HU5} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero entrenar un modelo ``pre entrenado'' sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
-      \item \textbf{HU6} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero ajustar un modelo ``dedicado'' a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
+      \item \textbf{HU5} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario. Este modelo oficia como ``pre entrenado'' respecto al modelo dedicado
+      \item \textbf{HU6} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
     \end{itemize}
   \item \textbf{\'{E}pica 4 --- Exposición vía API y prueba de concepto}
     \begin{itemize}
       \item \textbf{HU7} (Prioridad: Alta, 8 SP): Como agente conversacional, quiero consultar \texttt{get\_profile(user)} y \texttt{recommend(context)} a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.
-      \item \textbf{HU8} (Prioridad: Media, 8 SP): Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada (PoC con API de Claude) para validar que el sistema funciona de punta a punta.
+      \item \textbf{HU8} (Prioridad: Media, 8 SP): Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada. Esto se hará mediante una prueba de concepto con una API vía Claude para validar que el sistema funciona de punta a punta.
     \end{itemize}
 \end{itemize}
 
