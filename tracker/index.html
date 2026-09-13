@@ -182,7 +182,7 @@
 const DATA = [
   { id: "e1", nombre: "Épica 1 — Perfilado de usuarios", hus: [
     { id: "hu1", titulo: "HU1", prioridad: "Alta", sp: 8,
-      desc: "Como sistema de perfilado, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.",
+      desc: "Como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.",
       tareas: [
         { t: "Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario", h: 4, p: "Alta" },
         { t: "Extraer y limpiar los campos necesarios por usuario (fecha de reseña, rating/monto, producto)", h: 4, p: "Alta" },
@@ -194,7 +194,7 @@ const DATA = [
       ]
     },
     { id: "hu2", titulo: "HU2", prioridad: "Media", sp: 5,
-      desc: "Como sistema de perfilado, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales para mejorar la calidad de la segmentación.",
+      desc: "Como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales para mejorar la calidad de la segmentación.",
       tareas: [
         { t: "Explorar candidatos de atributos de comportamiento adicionales (categorías frecuentes, recencia por categoría, diversidad de compra)", h: 3, p: "Media" },
         { t: "Diseñar el modelo de datos (esquema) del objeto “Perfil de Usuario”, integrando RFM y atributos seleccionados", h: 4, p: "Alta" },
@@ -206,7 +206,7 @@ const DATA = [
   ]},
   { id: "e2", nombre: "Épica 2 — Motor de recomendación híbrido", hus: [
     { id: "hu3", titulo: "HU3", prioridad: "Alta", sp: 13,
-      desc: "Como recomendador, quiero combinar señales colaborativas, de contenido y de co-compra en un único ranking de ítems para ofrecer recomendaciones más relevantes que un solo enfoque aislado.",
+      desc: "Como agente conversacional, quiero recibir un ranking de ítems que combine señales colaborativas, de contenido y de co-compra, para poder ofrecer recomendaciones más relevantes que con un solo enfoque aislado.",
       tareas: [
         { t: "Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata", h: 4, p: "Alta" },
         { t: "Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem)", h: 3, p: "Alta" },
@@ -218,7 +218,7 @@ const DATA = [
       ]
     },
     { id: "hu4", titulo: "HU4", prioridad: "Media", sp: 5,
-      desc: "Como recomendador, quiero exponer un score de confianza por recomendación para que el agente conversacional pueda decidir cuándo mostrarla u ofrecer alternativas.",
+      desc: "Como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.",
       tareas: [
         { t: "Definir qué señales de evidencia disponible se usan para estimar la confianza (señales activas, cobertura de datos, cold-start)", h: 3, p: "Media" },
         { t: "Diseñar la fórmula o heurística de score de confianza en función de esas señales", h: 3, p: "Media" },
