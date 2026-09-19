@@ -100,6 +100,7 @@
 \usepackage[labelsep=period]{caption}
 \usepackage{longtable}
 \usepackage{etoolbox}
+\usepackage{enumitem}
 
 %\usepackage{tikz}
 %\usetikzlibrary{arrows, arrows.meta, calc, positioning, quotes, shapes}

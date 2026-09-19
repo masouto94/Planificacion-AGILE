@@ -200,25 +200,25 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \begin{itemize}
   \item \textbf{\'{E}pica 1 --- Perfilado de usuarios}
     \begin{itemize}
-      \item \textbf{HU1} (Prioridad: Alta, 8 SP): Como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.
-      \item \textbf{HU2} (Prioridad: Media, 5 SP): Como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.
+      \item \textbf{HU1} (Prioridad: alta, 8 SP): como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.
+      \item \textbf{HU2} (Prioridad: media, 5 SP): como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.
     \end{itemize}
   \item \textbf{\'{E}pica 2 --- Motor de recomendación híbrido}
     \begin{itemize}
-      \item \textbf{HU3} (Prioridad: Alta, 13 SP): Como agente conversacional, quiero recibir un ranking de ítems que combine señales colaborativas, de contenido y de co-compra, para poder ofrecer recomendaciones más relevantes que con un solo enfoque aislado.
-      \item \textbf{HU4} (Prioridad: Media, 5 SP): Como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.
+      \item \textbf{HU3} (Prioridad: alta, 13 SP): como agente conversacional, quiero recibir un ranking de ítems que combine señales colaborativas, de contenido y de co-compra, para poder ofrecer recomendaciones más relevantes que con un solo enfoque aislado.
+      \item \textbf{HU4} (Prioridad: media, 5 SP): como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.
     \end{itemize}
   \item \textbf{\'{E}pica 3 --- Transfer learning entre modelos}
     \begin{itemize}
-      \item \textbf{HU5} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
-      \item \textbf{HU6} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
+      \item \textbf{HU5} (Prioridad: alta, 13 SP): como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
+      \item \textbf{HU6} (Prioridad: alta, 13 SP): como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
     \end{itemize}
   \item \textbf{\'{E}pica 4 --- Exposición vía API y prueba de concepto}
     \begin{itemize}
-      \item \textbf{HU7} (Prioridad: Alta, 8 SP): Como agente conversacional, quiero consultar
+      \item \textbf{HU7} (Prioridad: alta, 8 SP): como agente conversacional, quiero consultar
       
       \texttt{get\_profile(user)} y \texttt{recommend(context)} a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.
-      \item \textbf{HU8} (Prioridad: Media, 8 SP): Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada para validar que el sistema funciona de punta a punta.
+      \item \textbf{HU8} (Prioridad: media, 8 SP): como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada para validar que el sistema funciona de punta a punta.
     \end{itemize}
 \end{itemize}
 
@@ -228,23 +228,71 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \begin{itemize}
   \item \textbf{\'{E}pica 1}
     \begin{itemize}
-      \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''. El criterio de éxito será que al menos el 80\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
-      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. El criterio de éxito será que los atributos adicionales mejoren la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clústers.
+      \item \textbf{HU1}:
+        \begin{enumerate}[label=(\alph*)]
+          \item para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos;
+          \item los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada;
+          \item el usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''.
+        \end{enumerate}
+        El criterio de éxito será que al menos el 80\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
+      \item \textbf{HU2}:
+        \begin{enumerate}[label=(\alph*)]
+          \item el perfil incluye al menos dos atributos de comportamiento adicionales a RFM;
+          \item dichos atributos no duplican información ya cubierta por RFM;
+          \item se documenta el criterio de selección y el rango de valores esperado de cada atributo.
+        \end{enumerate}
+        El criterio de éxito será que los atributos adicionales mejoren la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clústers.
     \end{itemize}
   \item \textbf{\'{E}pica 2}
     \begin{itemize}
-      \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente. El criterio de éxito será que el ranking híbrido obtenga una métrica de calidad superior a la de cualquiera de las tres señales evaluadas de forma aislada. Por ejemplo, mejor precisión de clasificación (precision@10) o mejor NDCG@10.
-      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí; (b) el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo; (c) existe un umbral configurable por debajo del que la recomendación puede omitirse. El criterio de éxito será que aplicar el umbral de confianza reduzca la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
+      \item \textbf{HU3}:
+        \begin{enumerate}[label=(\alph*)]
+          \item dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales;
+          \item cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score;
+          \item el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente.
+        \end{enumerate}
+        El criterio de éxito será que el ranking híbrido obtenga una métrica de calidad superior a la de cualquiera de las tres señales evaluadas de forma aislada. Por ejemplo, mejor precisión de clasificación (precision@10) o mejor NDCG@10.
+      \item \textbf{HU4}:
+        \begin{enumerate}[label=(\alph*)]
+          \item cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí;
+          \item el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo;
+          \item existe un umbral configurable por debajo del que la recomendación puede omitirse.
+        \end{enumerate}
+        El criterio de éxito será que aplicar el umbral de confianza reduzca la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
     \end{itemize}
   \item \textbf{\'{E}pica 3}
     \begin{itemize}
-      \item \textbf{HU5}: (a) se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período); (b) se reporta al menos una métrica de calidad sobre un conjunto de validación; (c) el modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado. El criterio de éxito será que el modelo pre entrenado supere a un baseline aleatorio o de popularidad en la métrica de calidad reportada sobre el conjunto de validación.
-      \item \textbf{HU6}: (a) se declara explícitamente el dataset acotado utilizado para el ajuste; (b) se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero; (c) el proceso de ajuste es reproducible sobre el mismo dataset acotado. El criterio de éxito será que el modelo dedicado iguale o supere la métrica de calidad del modelo entrenado desde cero, usando el mismo dataset acotado, lo que validaría la ganancia del transfer learning.
+      \item \textbf{HU5}:
+        \begin{enumerate}[label=(\alph*)]
+          \item se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período);
+          \item se reporta al menos una métrica de calidad sobre un conjunto de validación;
+          \item el modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado.
+        \end{enumerate}
+        El criterio de éxito será que el modelo pre entrenado supere a un baseline aleatorio o de popularidad en la métrica de calidad reportada sobre el conjunto de validación.
+      \item \textbf{HU6}:
+        \begin{enumerate}[label=(\alph*)]
+          \item se declara explícitamente el dataset acotado utilizado para el ajuste;
+          \item se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero;
+          \item el proceso de ajuste es reproducible sobre el mismo dataset acotado.
+        \end{enumerate}
+        El criterio de éxito será que el modelo dedicado iguale o supere la métrica de calidad del modelo entrenado desde cero, usando el mismo dataset acotado, lo que validaría la ganancia del transfer learning.
     \end{itemize}
   \item \textbf{\'{E}pica 4}
     \begin{itemize}
-      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto; (c) ambos contratos se mantienen estables ante cambios internos del motor, y se versionan si cambian. El criterio de éxito será que el 100\% de las pruebas realizadas completen el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
-      \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto. El criterio de éxito será que al menos una conversación simulada de punta a punta concluya con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
+      \item \textbf{HU7}:
+        \begin{enumerate}[label=(\alph*)]
+          \item \texttt{get\_profile(user)} responde en un formato de contrato documentado;
+          \item \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto;
+          \item ambos contratos se mantienen estables ante cambios internos del motor, y se versionan si cambian.
+        \end{enumerate}
+        El criterio de éxito será que el 100\% de las pruebas realizadas completen el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
+      \item \textbf{HU8}:
+        \begin{enumerate}[label=(\alph*)]
+          \item un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente;
+          \item el flujo de punta a punta queda documentado con al menos un ejemplo registrado;
+          \item se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto.
+        \end{enumerate}
+        El criterio de éxito será que al menos una conversación simulada de punta a punta concluya con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
     \end{itemize}
 \end{itemize}
 
