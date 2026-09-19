@@ -30,7 +30,7 @@
  
 \fechaINICIO{25 de agosto de 2026}		%Fecha de inicio de la cursada de GdP \fechaInicioName
 \fechaFINALPlan{13 de octubre de 2026} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{\textit{Abril de 2027}}	%Fecha de defensa pública del trabajo final
+\fechaFINALTrabajo{Abril de 2027}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -106,16 +106,16 @@ Se adjunta a esta acta la planificación inicial.
 \section{1. Descripción técnica-conceptual del proyecto a realizar}
 \label{sec:descripcion}
 
-El presente proyecto constituye una iniciativa personal del alumno, orientada a su propio crecimiento profesional dentro del área de inteligencia artificial conversacional. El alumno se desempeña actualmente como ingeniero conversacional en NTT Data, una empresa de consultoría tecnológica y de telecomunicaciones, donde se exploran diversas experiencias de compra conversacional que buscan replicar, dentro de una aplicación, la naturalidad de una interacción cara a cara en un comercio: el usuario inicia una sesión con un agente de voz o texto y solicita productos con la misma naturalidad con la que se lo pediría a una persona en una tienda. No se cuenta con financiamiento externo ni con acuerdos de confidencialidad o de propiedad intelectual asociados a este trabajo; se trata de un desarrollo autónomo cuyos resultados son de autoría del alumno.
+El presente proyecto constituye una iniciativa personal del alumno, orientada a su propio crecimiento profesional dentro del área de inteligencia artificial conversacional. El autor se desempeña actualmente como ingeniero conversacional en NTT Data, una empresa de consultoría tecnológica y de telecomunicaciones, en la que se exploran diversas experiencias de compra conversacional que buscan replicar, dentro de una aplicación, la naturalidad de una interacción cara a cara en un comercio: el usuario inicia una sesión con un agente de voz o texto y solicita productos con la misma naturalidad con la que se lo pediría a una persona en una tienda. No se cuenta con financiamiento externo ni con acuerdos de confidencialidad o de propiedad intelectual asociados a este trabajo, ya que se trata de un desarrollo autónomo cuyos resultados son de autoría del alumno.
 
-En el estado actual de la industria, se observa que la mayoría de las soluciones conversacionales para retail se limitan a actuar como buscadores de productos, incorporando en algunos casos un componente agéntico acotado (por ejemplo, agregar al carrito el producto ya identificado por el usuario). Sin embargo, estas soluciones no suelen incorporar un motor de recomendación robusto que perfile al usuario y proponga proactivamente productos relevantes dentro del propio flujo conversacional, tal como lo haría un vendedor humano que reconoce a un cliente recurrente y anticipa sus preferencias.
+En el estado actual de la industria, se observa que la mayoría de las soluciones conversacionales para retail se limitan a actuar como buscadores de productos. En algunos casos llegan a incorporar un componente agéntico acotado (por ejemplo, agregar al carrito el producto ya identificado por el usuario). Sin embargo, estas soluciones no suelen incorporar un motor de recomendación robusto que perfile al usuario y proponga proactivamente productos relevantes dentro del propio flujo conversacional, tal como lo haría un vendedor humano que reconoce a un cliente recurrente y anticipa sus preferencias.
 
-El problema que se busca atender con este proyecto es, entonces, la falta de un componente de perfilado y recomendación que sea a la vez robusto y agnóstico a la plataforma conversacional que lo consume. La solución propuesta consiste en desarrollar un pipeline de perfilamiento-recomendación pensado como un servicio desacoplado del agente conversacional, expuesto a este último mediante una interfaz de tools simple (por ejemplo, \texttt{get\_profile(user)} y \texttt{recommend(context)}). De esta forma, el mismo motor podría integrarse tanto a una experiencia de ``compra sin clicks'' completamente conversacional como a una aplicación de retail clásica, ya que las recomendaciones no dependen de cómo el usuario efectúa la compra sino de su perfil y comportamiento.
+El problema que se busca atender con este proyecto es, entonces, la falta de un componente de perfilado y recomendación que sea a la vez robusto y agnóstico a la plataforma conversacional que lo consume. La solución propuesta consiste en desarrollar un pipeline de perfilamiento-recomendación pensado como un servicio desacoplado del agente conversacional, expuesto a este último mediante una interfaz de herramientas llamables por el agente (\textit{tools}) simple. Por ejemplo, \texttt{get\_profile(user)} y \texttt{recommend(context)}. De esta forma, el mismo motor podría integrarse tanto a una experiencia de ``compra sin clicks'' completamente conversacional como a una aplicación de retail clásica, ya que las recomendaciones no dependen de cómo el usuario efectúa la compra sino de su perfil y comportamiento.
 
 El motor por desarrollar se compone de dos módulos. El primero es un perfilador que clasifica a los usuarios en función de features RFM (Recencia, Frecuencia, Valor monetario) y de atributos de comportamiento adicionales.
-El segundo módulo del motor es un recomendador híbrido, que combina señales colaborativas, de contenido y de co-compra, y que produce un ranking de ítems a partir del perfil generado por el primer módulo. Un aspecto distintivo de la propuesta es que se aborda el recomendador como un problema de transfer learning: se entrena un modelo ``pre entrenado'' sobre un dataset extenso y público —Amazon Reviews'23— que permite acotar el universo de productos y perfiles a un conjunto de características y probabilidades de recomendación; luego, se ajusta un modelo ``dedicado'', derivado del anterior, sobre el conjunto de datos disponible para un caso de uso concreto, típicamente más escueto en volumen o en riqueza de atributos. La ganancia esperada de este enfoque es poder producir recomendaciones de mejor calidad con menos datos y menor costo de cómputo que si se entrenara un modelo desde cero para cada nuevo dominio.
+El segundo módulo del motor es un recomendador híbrido, que combina señales colaborativas, de contenido y de co-compra, y que produce un ranking de ítems a partir del perfil generado por el primer módulo. Un aspecto distintivo de la propuesta es que se aborda el recomendador como un problema de transfer learning: se entrena un modelo ``pre entrenado'' sobre un dataset extenso y público (Amazon Reviews'23) que permite acotar el universo de productos y perfiles a un conjunto de características y probabilidades de recomendación. Luego, se ajusta un modelo ``dedicado'', derivado del anterior, sobre el conjunto de datos disponible para un caso de uso concreto, típicamente más escueto en volumen o en riqueza de atributos. La ganancia esperada de este enfoque es poder producir recomendaciones de mejor calidad con menos datos y menor costo de cómputo que si se entrenara un modelo desde cero para cada nuevo dominio.
 
-En la figura \ref{fig:diagrama_basico} se presenta el diagrama en bloques del sistema. Se observa que el flujo conversacional queda contenido en un agente orquestador (para la prueba de concepto, una API simple sobre Claude), que interpreta el lenguaje natural del usuario y llama al pipeline de perfilado-recomendación a través de un contrato de interfaz estable. El ``Motor'' agrupa al perfilador y al recomendador, cuyos resultados se mantienen stateful respecto de la conversación en curso. Como capa de persistencia se propone Postgres, dada su capacidad de almacenar tanto datos estructurados (reseñas, perfiles de usuario) como semiestructurados (metadata de ítems en formato JSONB, tabla de co-compra).
+En la figura \ref{fig:diagrama_basico} se presenta el diagrama en bloques del sistema. Se observa que el flujo conversacional queda contenido en un agente orquestador (para la prueba de concepto, una API simple sobre Claude), que interpreta el lenguaje natural del usuario y llama al pipeline de perfilado-recomendación a través de un contrato de interfaz estable. El ``motor'' agrupa al perfilador y al recomendador, cuyos resultados se persisten estado respecto de la conversación en curso (\textit{stateful}). Como capa de persistencia se propone PostgreSQL, dada su capacidad de almacenar tanto datos estructurados (reseñas, perfiles de usuario) como semiestructurados (metadata de ítems en formato JSONB, tabla de co-compra).
 
 \begin{figure}[htpb]
 \centering
@@ -124,9 +124,9 @@ En la figura \ref{fig:diagrama_basico} se presenta el diagrama en bloques del si
 \label{fig:diagrama_basico}
 \end{figure}
 
-El alcance de este trabajo se acota al diseño e implementación del sistema de perfilado-recomendación y de su API, sin abarcar el desarrollo del flujo conversacional completo; no obstante, se construirá una prueba de concepto que demuestre cómo un agente conversacional podría consumir dicha API en tiempo real. Entre los desafíos identificados a priori se destacan: el sesgo introducido por utilizar reseñas como proxy de compra (solo se observa al usuario cuando dejó una reseña), el problema de cold-start para usuarios e ítems nuevos, y la cobertura incompleta de metadata en parte del dataset, que se resolverá filtrando o marcando los ítems afectados según la estrategia de splitting estándar del dataset.
+El alcance de este trabajo se acota al diseño e implementación del sistema de perfilado-recomendación y de su API, sin abarcar el desarrollo del flujo conversacional completo. No obstante, se construirá una prueba de concepto que demuestre cómo un agente conversacional podría consumir dicha API en tiempo real. Entre los desafíos identificados a priori se destacan: el sesgo introducido por utilizar reseñas como proxy de compra (solo se observa al usuario cuando dejó una reseña), el problema de cold-start para usuarios e ítems nuevos, y la cobertura incompleta de metadata en parte del dataset, que se resolverá filtrando o marcando los ítems afectados según la estrategia de splitting estándar del dataset.
 
-Se trata de un desarrollo desde cero que se llevará hasta el nivel de prueba de concepto; la innovación radica principalmente en el enfoque de transfer learning aplicado a la combinación perfilado-recomendación y en el diseño de una interfaz agnóstica al bot conversacional, lo que habilita su reutilización en distintos verticales de comercio.
+Se trata de un desarrollo desde cero que se llevará hasta el nivel de prueba de concepto. La innovación radica principalmente en el enfoque de transfer learning aplicado a la combinación perfilado-recomendación y en el diseño de una interfaz agnóstica al bot conversacional, lo que habilita su reutilización en distintos verticales de comercio.
 
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
@@ -156,7 +156,7 @@ A continuación se detallan las principales características de cada interesado:
 \section{3. Propósito del proyecto}
 \label{sec:proposito}
 
-Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de transfer learning, que pueda integrarse como herramienta de un agente conversacional de compras. Se busca que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Se trata de una prueba de concepto con la cual se pretende demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, se espera avanzar en el desarrollo profesional del alumno dentro del área de inteligencia artificial conversacional.
+Diseñar e implementar un sistema de perfilado y recomendación para retail, basado en un enfoque de transfer learning, que pueda integrarse como herramienta de un agente conversacional de compras. Se busca que el sistema perfile a los usuarios a partir de features RFM y de comportamiento, y que genere recomendaciones híbridas de productos con una calidad aceptable incluso contando con pocos datos propios del cliente que lo adopte, aprovechando el conocimiento transferido desde un modelo pre entrenado sobre un dataset público y extenso. Se trata de una prueba de concepto con la que se pretende demostrar que es posible desacoplar la inteligencia de recomendación del canal conversacional específico. Este enfoque habilita su reutilización entre distintos bots y verticales de comercio. De esta manera, se espera avanzar en el desarrollo profesional del alumno dentro del área de inteligencia artificial conversacional.
 
 \section{4. Alcance del proyecto}
 \label{sec:alcance}
@@ -166,7 +166,7 @@ El proyecto incluye:
 	\item Diseño e implementación del módulo perfilador, basado en features RFM y atributos de comportamiento.
 	\item Diseño e implementación del módulo recomendador híbrido (colaborativo + contenido + co-compra).
 	\item Entrenamiento de un modelo pre entrenado sobre el dataset Amazon Reviews'23.
-	\item Búsqueda y selección de un dataset más acotado, todavía no identificado, sobre el cual ajustar un modelo ``dedicado'' vía transfer learning, para validar la hipótesis de mejores recomendaciones con menos datos.
+	\item Búsqueda y selección de un dataset más acotado, todavía no identificado, sobre el que ajustar un modelo ``dedicado'' vía transfer learning, para validar la hipótesis de mejores recomendaciones con menos datos.
 	\item Exposición de los resultados vía una API con contrato estable (por ejemplo \texttt{get\_profile}, \texttt{recommend}).
 	\item Diseño del esquema de persistencia en PostgreSQL (reviews, perfiles de usuario, ítems, co-compra).
 	\item Una prueba de concepto de un agente conversacional simple que se monte sobre la API sobre Claude para denotar el punta a punta.
@@ -195,7 +195,7 @@ Para el desarrollo del presente proyecto se supone que:
 \section{6. Product Backlog}
 \label{sec:backlog}
 
-El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias de usuario. El criterio para la asignación de Story Points fue la escala Fibonacci (1-2-3-5-8-13). Por lo tanto, solo se podrán asignar esos valores. Se pondera la complejidad técnica, el nivel de incertidumbre, por ejemplo, la disponibilidad de un dataset acotado para HU6; y la experiencia previa del alumno.
+El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias de usuario. El criterio para la asignación de story points fue la escala Fibonacci (1-2-3-5-8-13). Por lo tanto, solo se podrán asignar esos valores. Se pondera la complejidad técnica, el nivel de incertidumbre y la experiencia previa del alumno.
 
 \begin{itemize}
   \item \textbf{\'{E}pica 1 --- Perfilado de usuarios}
@@ -210,13 +210,15 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
     \end{itemize}
   \item \textbf{\'{E}pica 3 --- Transfer learning entre modelos}
     \begin{itemize}
-      \item \textbf{HU5} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario. Este modelo oficia como ``pre entrenado'' respecto al modelo dedicado
+      \item \textbf{HU5} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
       \item \textbf{HU6} (Prioridad: Alta, 13 SP): Como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
     \end{itemize}
   \item \textbf{\'{E}pica 4 --- Exposición vía API y prueba de concepto}
     \begin{itemize}
-      \item \textbf{HU7} (Prioridad: Alta, 8 SP): Como agente conversacional, quiero consultar \texttt{get\_profile(user)} y \texttt{recommend(context)} a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.
-      \item \textbf{HU8} (Prioridad: Media, 8 SP): Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada. Esto se hará mediante una prueba de concepto con una API vía Claude para validar que el sistema funciona de punta a punta.
+      \item \textbf{HU7} (Prioridad: Alta, 8 SP): Como agente conversacional, quiero consultar
+      
+      \texttt{get\_profile(user)} y \texttt{recommend(context)} a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.
+      \item \textbf{HU8} (Prioridad: Media, 8 SP): Como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada para validar que el sistema funciona de punta a punta.
     \end{itemize}
 \end{itemize}
 
@@ -227,12 +229,12 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
   \item \textbf{\'{E}pica 1}
     \begin{itemize}
       \item \textbf{HU1}: (a) para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos; (b) los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada; (c) el usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''. El criterio de éxito será que al menos el 80\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
-      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. El criterio de éxito será que los atributos adicionales mejoren la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clusters.
+      \item \textbf{HU2}: (a) el perfil incluye al menos dos atributos de comportamiento adicionales a RFM; (b) dichos atributos no duplican información ya cubierta por RFM; (c) se documenta el criterio de selección y el rango de valores esperado de cada atributo. El criterio de éxito será que los atributos adicionales mejoren la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clústers.
     \end{itemize}
   \item \textbf{\'{E}pica 2}
     \begin{itemize}
       \item \textbf{HU3}: (a) dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales; (b) cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score; (c) el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente. El criterio de éxito será que el ranking híbrido obtenga una métrica de calidad superior a la de cualquiera de las tres señales evaluadas de forma aislada. Por ejemplo, mejor precisión de clasificación (precision@10) o mejor NDCG@10.
-      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí; (b) el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo; (c) existe un umbral configurable por debajo del cual la recomendación puede omitirse. El criterio de éxito será que aplicar el umbral de confianza reduzca la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
+      \item \textbf{HU4}: (a) cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí; (b) el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo; (c) existe un umbral configurable por debajo del que la recomendación puede omitirse. El criterio de éxito será que aplicar el umbral de confianza reduzca la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
     \end{itemize}
   \item \textbf{\'{E}pica 3}
     \begin{itemize}
@@ -241,7 +243,7 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
     \end{itemize}
   \item \textbf{\'{E}pica 4}
     \begin{itemize}
-      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto; (c) ambos contratos se mantienen estables ante cambios internos del motor, versionándose si cambian. El criterio de éxito será que el 100\% de las pruebas realizadas completen el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
+      \item \textbf{HU7}: (a) \texttt{get\_profile(user)} responde en un formato de contrato documentado; (b) \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto; (c) ambos contratos se mantienen estables ante cambios internos del motor, y se versionan si cambian. El criterio de éxito será que el 100\% de las pruebas realizadas completen el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
       \item \textbf{HU8}: (a) un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente; (b) el flujo de punta a punta queda documentado con al menos un ejemplo registrado; (c) se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto. El criterio de éxito será que al menos una conversación simulada de punta a punta concluya con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
     \end{itemize}
 \end{itemize}
@@ -249,18 +251,18 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \section{8. Fases de CRISP-DM}
 
 \begin{enumerate}
-  \item \textbf{Comprensión del negocio:} el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail; el valor agregado de la IA es habilitar una experiencia de vendedor proactivo; las métricas de éxito son la calidad de las recomendaciones y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
-  \item \textbf{Comprensión de los datos:} el dataset principal es Amazon Reviews'23, que contiene reseñas, calificaciones y metadata de productos; se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
+  \item \textbf{Comprensión del negocio:} el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail. El valor agregado de la IA es habilitar una experiencia de vendedor proactivo. Las métricas de éxito son la calidad de las recomendaciones y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
+  \item \textbf{Comprensión de los datos:} el dataset principal es Amazon Reviews'23, que contiene reseñas, calificaciones y metadata de productos. Se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
   \item \textbf{Preparación de los datos:} construcción de las features RFM por usuario, filtrado o marcado de ítems con metadata incompleta, y diseño del esquema de persistencia en PostgreSQL, que incluye reviews, perfiles, ítems en formato JSONB y una tabla de co-compra.
-  \item \textbf{Modelado:} el modelado se aborda como un problema híbrido, combinando perfilado mediante segmentación RFM y recomendación mediante enfoques colaborativo, de contenido y de co-compra. Además, se aplica transfer learning entre un modelo pre entrenado sobre un dataset extenso y un modelo dedicado ajustado sobre un dataset acotado.
-  \item \textbf{Evaluación del modelo:} se mide la calidad de los rankings de recomendación y de la segmentación RFM, comparando el modelo dedicado contra una versión entrenada desde cero para validar la ganancia del transfer learning.
-  \item \textbf{Despliegue del modelo (opcional):} para esta prueba de concepto, el despliegue se limita a exponer el motor vía una API simple consumida por un agente conversacional de prueba (API sobre Claude), sin publicación en infraestructura productiva.
+  \item \textbf{Modelado:} el modelado se aborda como un problema híbrido, combinando perfilado mediante segmentación RFM y recomendación mediante enfoques colaborativo, de contenido y de co-compra. Además, se aplicará transfer learning entre un modelo pre entrenado sobre un dataset extenso y un modelo dedicado ajustado sobre un dataset acotado.
+  \item \textbf{Evaluación del modelo:} se medirá la calidad de los rankings de recomendación y de la segmentación RFM, comparando el modelo dedicado contra una versión entrenada desde cero para validar la ganancia del transfer learning.
+  \item \textbf{Despliegue del modelo:} para esta prueba de concepto, el despliegue se limita a exponer el motor vía una API simple consumida por un agente conversacional de prueba (API sobre Claude), sin publicación en infraestructura productiva.
 \end{enumerate}
 
 \section{9. Desglose del trabajo en tareas}
 \label{sec:wbs}
 
-A partir de las historias de usuario definidas en la sección 6, se descompone el trabajo en tareas técnicas concretas y acotadas en el tiempo. El criterio de estimación considera la complejidad técnica, el nivel de incertidumbre, como la disponibilidad de un dataset acotado para el modelo dedicado, y la experiencia previa del alumno; la prioridad de cada tarea depende de su relevancia funcional y de si resulta bloqueante para otras tareas.
+A partir de las historias de usuario definidas en la sección 6, se descompone el trabajo en tareas técnicas concretas y acotadas en el tiempo. El criterio de estimación considera la complejidad técnica, el nivel de incertidumbre, como la disponibilidad de un dataset acotado para el modelo dedicado, y la experiencia previa del alumno. La prioridad de cada tarea depende de su relevancia funcional y de si resulta bloqueante para otras tareas.
 
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.60\linewidth}|>{\centering\arraybackslash}p{0.12\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|}
 \hline
@@ -279,10 +281,10 @@ HU1 & Detectar y tratar outliers en las variables RFM (usuarios con actividad at
 HU1 & Normalizar las tres variables en una escala común y validar reproducibilidad & 3 h & Alta \\ \hline
 HU1 & Definir umbrales/quantiles de segmentación RFM y documentar los segmentos resultantes & 4 h & Alta \\ \hline
 HU2 & Explorar candidatos de atributos de comportamiento adicionales, como categorías frecuentes, recencia por categoría y diversidad de compra & 3 h & Media \\ \hline
-HU2 & Diseñar el modelo de datos (esquema) del objeto ``Perfil de Usuario'', integrando las variables RFM y los atributos seleccionados & 4 h & Alta \\ \hline
+HU2 & Diseñar el modelo de datos (esquema) del objeto ``perfil de usuario'', integrando las variables RFM y los atributos seleccionados & 4 h & Alta \\ \hline
 HU2 & Calcular los atributos seleccionados por usuario & 4 h & Media \\ \hline
 HU2 & Validar, mediante un análisis de correlación y redundancia, que los nuevos atributos no dupliquen información ya cubierta por RFM & 3 h & Media \\ \hline
-HU2 & Integrar los atributos calculados en el objeto Perfil de Usuario y documentar su rango esperado & 3 h & Media \\ \hline
+HU2 & Integrar los atributos calculados en el objeto perfil de usuario y documentar su rango esperado & 3 h & Media \\ \hline
 HU3 & Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata & 4 h & Alta \\ \hline
 HU3 & Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem) & 3 h & Alta \\ \hline
 HU3 & Explorar y entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas & 8 h & Alta \\ \hline
@@ -293,7 +295,7 @@ HU3 & Filtrar del ranking final los ítems ya comprados/reseñados por el usuari
 HU4 & Definir qué señales de evidencia disponible se usan para estimar la confianza, como la cantidad de señales activas, la cobertura de datos o el cold-start & 3 h & Media \\ \hline
 HU4 & Diseñar la fórmula o heurística de score de confianza en función de esas señales & 3 h & Media \\ \hline
 HU4 & Implementar el cálculo del score y exponerlo junto con cada recomendación & 3 h & Media \\ \hline
-HU4 & Definir y calibrar un umbral configurable por debajo del cual la recomendación se omite o se reemplaza por un fallback & 4 h & Media \\ \hline
+HU4 & Definir y calibrar un umbral configurable por debajo del que la recomendación se omite o se reemplaza por un fallback & 4 h & Media \\ \hline
 HU5 & Consolidar el perfilador (HU1/HU2) y el recomendador híbrido (HU3/HU4), entrenados sobre Amazon Reviews'23, como un único artefacto ``modelo pre entrenado'' & 4 h & Alta \\ \hline
 HU5 & Evaluar el modelo pre entrenado de punta a punta (perfilado + recomendación) con una métrica de calidad sobre un conjunto de validación & 5 h & Alta \\ \hline
 HU5 & Versionar y persistir los artefactos del modelo pre entrenado para que el modelo dedicado (HU6) pueda reutilizarlos & 3 h & Media \\ \hline
