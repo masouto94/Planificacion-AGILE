@@ -100,6 +100,7 @@
 \usepackage[labelsep=period]{caption}
 \usepackage{longtable}
 \usepackage{etoolbox}
+\usepackage{enumitem}
 
 %\usepackage{tikz}
 %\usetikzlibrary{arrows, arrows.meta, calc, positioning, quotes, shapes}
@@ -175,7 +176,7 @@
 \widowpenalty=10000   % Minimize widows
 \brokenpenalty=10000  % Do not allow hyphen across pages
 % Use cool footnotes
-\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
 \raggedbottom
 
 % PORTADA

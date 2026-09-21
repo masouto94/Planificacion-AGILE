@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 880" width="1240" height="880" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, DejaVu Sans Mono, monospace">
+  <defs>
+    <marker id="ah" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#8b95a1"/>
+    </marker>
+    <marker id="ah-v" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1 L11 6 L1 11 Z" fill="#a78bfa"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="880" fill="#17191d"/>
+
+  <!-- ============ AGENTE ORQUESTADOR ============ -->
+  <rect x="90" y="60" width="1060" height="150" rx="12" fill="#6cc7f6" fill-opacity="0.05" stroke="#6cc7f6" stroke-opacity="0.55" stroke-width="1.6"/>
+  <text x="620" y="101" text-anchor="middle" font-size="22" letter-spacing="3" fill="#6cc7f6">AGENTE ORQUESTADOR</text>
+  <text x="620" y="126" text-anchor="middle" font-size="13" letter-spacing="1" fill="#79838f">POC: Claude API</text>
+
+  <g>
+    <rect x="358" y="149" width="57" height="34" rx="17" fill="#6cc7f6" fill-opacity="0.10" stroke="#6cc7f6" stroke-opacity="0.35"/>
+    <text x="386.5" y="171" text-anchor="middle" font-size="14" fill="#dfe4ea">NLU</text>
+    <line x1="423" y1="166" x2="453" y2="166" stroke="#8b95a1" stroke-width="1.6" marker-end="url(#ah)"/>
+    <rect x="461" y="149" width="175" height="34" rx="17" fill="#6cc7f6" fill-opacity="0.10" stroke="#6cc7f6" stroke-opacity="0.35"/>
+    <text x="548.5" y="171" text-anchor="middle" font-size="14" fill="#dfe4ea">llama al pipeline</text>
+    <line x1="644" y1="166" x2="674" y2="166" stroke="#8b95a1" stroke-width="1.6" marker-end="url(#ah)"/>
+    <rect x="682" y="149" width="200" height="34" rx="17" fill="#6cc7f6" fill-opacity="0.10" stroke="#6cc7f6" stroke-opacity="0.35"/>
+    <text x="782" y="171" text-anchor="middle" font-size="14" fill="#dfe4ea">habla con el usuario</text>
+  </g>
+
+  <!-- ============ CONTRATO DE INTERFAZ ============ -->
+  <line x1="620" y1="210" x2="620" y2="298" stroke="#8b95a1" stroke-width="1.8" marker-end="url(#ah)"/>
+  <text x="652" y="240" font-size="13" letter-spacing="1.4" fill="#79838f">CONTRATO DE INTERFAZ (estable)</text>
+  <text x="652" y="262" font-size="14" fill="#c9d1d9">get_profile(user)  ·  recommend(ctx)</text>
+
+  <!-- ============ MOTOR ============ -->
+  <rect x="90" y="300" width="1060" height="280" rx="12" fill="#f0b429" fill-opacity="0.035" stroke="#f0b429" stroke-opacity="0.45" stroke-width="1.6"/>
+  <text x="620" y="342" text-anchor="middle" font-size="19" letter-spacing="4" fill="#f0b429">MOTOR</text>
+
+  <!-- perfilador -->
+  <rect x="140" y="380" width="400" height="160" rx="10" fill="#a78bfa" fill-opacity="0.07" stroke="#a78bfa" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="340" y="424" text-anchor="middle" font-size="17" letter-spacing="2.2" fill="#a78bfa">PERFILADOR</text>
+  <text x="340" y="470" text-anchor="middle" font-size="15" fill="#dfe4ea">RFM + segmentos</text>
+  <text x="340" y="500" text-anchor="middle" font-size="12.5" fill="#79838f">recencia · frecuencia · monto</text>
+
+  <!-- arrow perfilador -> recomendador -->
+  <text x="620" y="446" text-anchor="middle" font-size="12.5" letter-spacing="1" fill="#79838f">stateful</text>
+  <line x1="548" y1="462" x2="692" y2="462" stroke="#a78bfa" stroke-opacity="0.9" stroke-width="1.8" marker-end="url(#ah-v)"/>
+
+  <!-- recomendador -->
+  <rect x="700" y="380" width="400" height="160" rx="10" fill="#34d399" fill-opacity="0.06" stroke="#34d399" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="900" y="416" text-anchor="middle" font-size="17" letter-spacing="2.2" fill="#34d399">RECOMENDADOR</text>
+  <g font-size="14" fill="#dfe4ea">
+    <rect x="840" y="437" width="6" height="6" fill="#34d399"/>
+    <text x="860" y="446">colaborativo</text>
+    <rect x="840" y="470" width="6" height="6" fill="#34d399"/>
+    <text x="860" y="479">contenido</text>
+    <rect x="840" y="503" width="6" height="6" fill="#34d399"/>
+    <text x="860" y="512">co-compra</text>
+  </g>
+
+  <!-- ============ MOTOR <-> POSTGRES ============ -->
+  <line x1="620" y1="582" x2="620" y2="668" stroke="#8b95a1" stroke-width="1.8" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <text x="652" y="620" font-size="13" letter-spacing="1" fill="#79838f">lee · escribe</text>
+
+  <!-- ============ POSTGRES ============ -->
+  <rect x="90" y="670" width="1060" height="150" rx="12" fill="#60a5fa" fill-opacity="0.05" stroke="#60a5fa" stroke-opacity="0.55" stroke-width="1.6"/>
+  <text x="620" y="717" text-anchor="middle" font-size="20" letter-spacing="3" fill="#60a5fa">POSTGRES</text>
+
+  <g font-size="14">
+    <rect x="330" y="748" width="87" height="34" rx="8" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="373.5" y="770" text-anchor="middle" fill="#dfe4ea">reviews</text>
+    <rect x="441" y="748" width="137" height="34" rx="8" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="509.5" y="770" text-anchor="middle" fill="#dfe4ea">users(perfil)</text>
+    <rect x="602" y="748" width="129" height="34" rx="8" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="666.5" y="770" text-anchor="middle" fill="#dfe4ea">items(JSONB)</text>
+    <rect x="755" y="748" width="154" height="34" rx="8" fill="#60a5fa" fill-opacity="0.10" stroke="#60a5fa" stroke-opacity="0.35"/>
+    <text x="832" y="770" text-anchor="middle" fill="#dfe4ea">bought_together</text>
+  </g>
+</svg>
