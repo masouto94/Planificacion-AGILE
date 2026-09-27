@@ -62,6 +62,7 @@ Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios 
 1      & Se completa hasta el punto 5 inclusive                & 6 de septiembre de 2026 \\ \hline
 2      & Se completa hasta el punto 9 inclusive & 13 de septiembre de 2026 \\ \hline
 3      & Se completa hasta el punto 12 inclusive & 20 de septiembre de 2026 \\ \hline
+4      & Se completa el plan & 27 de septiembre de 2026 \\ \hline
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
 %		  Así                                                    & {día} de {mes} de 202X \ \hline
@@ -313,7 +314,7 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 
 A partir de las historias de usuario definidas en la sección 6, se descompone el trabajo en tareas técnicas concretas y acotadas en el tiempo. El criterio de estimación considera la complejidad técnica, el nivel de incertidumbre, como la disponibilidad de un dataset acotado para el modelo dedicado, y la experiencia previa del alumno. La prioridad de cada tarea depende de su relevancia funcional y de si resulta bloqueante para otras tareas.
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.60\linewidth}|>{\centering\arraybackslash}p{0.12\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.56\linewidth}|>{\centering\arraybackslash}p{0.12\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|}
 \hline
 \rowcolor[HTML]{C0C0C0}
 Historia de usuario & Tarea técnica & Estimación & Prioridad \\ \hline
@@ -593,160 +594,121 @@ En términos generales, el proyecto se acota a una prueba de concepto sin uso pr
 \section{13. Gestión de riesgos}
 \label{sec:riesgos}
 
-\begin{consigna}{red}
-a) Identificación de los riesgos (al menos cinco) y estimación de sus consecuencias:
- 
-Riesgo 1: detallar el riesgo (riesgo es algo que si ocurre altera los planes previstos de forma negativa)
-\begin{itemize}
-	\item Severidad (S): mientras más severo, más alto es el número (usar números del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O): mientras más probable, más alto es el número (usar del 1 al 10).\\
-	Justificar el motivo por el cual se asigna determinado número de (O). 
-\end{itemize}   
+En esta sección se identifican los principales riesgos del proyecto, se estima su prioridad y se definen planes de mitigación para los más críticos. Cada riesgo se evalúa según su severidad (S) y su probabilidad de ocurrencia (O), ambas en una escala del 1 al 10. El producto de ambos valores da el número de prioridad del riesgo (RPN).
 
-Riesgo 2:
+\subsection{Identificación de los riesgos}
+
+Riesgo 1: no encontrar un dataset acotado adecuado para ajustar el modelo dedicado de HU6.
 \begin{itemize}
-	\item Severidad (S): X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+  \item Severidad (S): 8. Sin ese dataset no es posible validar el enfoque de transfer learning, que constituye la principal innovación del trabajo.
+  \item Ocurrencia (O): 6. El dataset todavía no fue identificado y debe cumplir condiciones específicas de volumen, atributos y licencia.
 \end{itemize}
 
-Riesgo 3:
+Riesgo 2: que la infraestructura de cómputo disponible no alcance para entrenar sobre Amazon Reviews'23.
 \begin{itemize}
-	\item Severidad (S):  X.\\
-	Justificación...
-	\item Ocurrencia (O): Y.\\
-	Justificación...
+  \item Severidad (S): 5. El entrenamiento puede realizarse sobre una muestra del dataset, con una pérdida acotada de representatividad.
+  \item Ocurrencia (O): 5. El dataset es muy voluminoso, aunque se distribuye por categorías, lo que facilita trabajar con subconjuntos.
 \end{itemize}
 
+Riesgo 3: desvíos en la carga horaria por compromisos laborales del alumno.
+\begin{itemize}
+  \item Severidad (S): 6. Un desvío prolongado retrasaría las historias de usuario siguientes y podría comprometer la fecha de defensa.
+  \item Ocurrencia (O): 6. Se trata de un proyecto individual que se desarrolla en paralelo a un empleo de tiempo completo.
+\end{itemize}
 
-b) Tabla de gestión de riesgos:      (El RPN se calcula como RPN=SxO)
+Riesgo 4: que la escasez de interacciones y el cold-start degraden la calidad de las recomendaciones.
+\begin{itemize}
+  \item Severidad (S): 6. Una calidad baja impediría cumplir el criterio de éxito de HU3, aunque no detiene el desarrollo del resto del sistema.
+  \item Ocurrencia (O): 7. Es un problema propio de los datos de reseñas, ya que la mayoría de los usuarios deja pocas reseñas y muchos ítems tienen poca actividad.
+\end{itemize}
 
-\begin{table}[htpb]
+Riesgo 5: que el modelo dedicado no supere al modelo entrenado desde cero.
+\begin{itemize}
+  \item Severidad (S): 7. El resultado no validaría la hipótesis principal del trabajo, aunque seguiría siendo un hallazgo documentable.
+  \item Ocurrencia (O): 5. La ganancia del transfer learning depende de la similitud entre ambos dominios, que todavía no puede estimarse.
+\end{itemize}
+
+\subsection{Tabla de gestión de riesgos}
+
+La tabla \ref{tab:riesgos} resume la evaluación de cada riesgo antes y después de aplicar la mitigación.
+
+\begin{table}[H]
 \centering
+\caption{Gestión de riesgos.}
+\label{tab:riesgos}
 \begin{tabularx}{\linewidth}{@{}|X|c|c|c|c|c|c|@{}}
 \hline
-\rowcolor[HTML]{C0C0C0} 
+\rowcolor[HTML]{C0C0C0}
 Riesgo & S & O & RPN & S* & O* & RPN* \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-       &   &   &     &    &    &      \\ \hline
-\end{tabularx}%
+1. No encontrar un dataset acotado adecuado & 8 & 6 & 48 & 6 & 3 & 18 \\ \hline
+2. Cómputo insuficiente para entrenar sobre el dataset & 5 & 5 & 25 & - & - & - \\ \hline
+3. Desvíos en la carga horaria & 6 & 6 & 36 & - & - & - \\ \hline
+4. Escasez de interacciones y cold-start & 6 & 7 & 42 & 4 & 6 & 24 \\ \hline
+5. El modelo dedicado no supera al entrenado desde cero & 7 & 5 & 35 & - & - & - \\ \hline
+\end{tabularx}
 \end{table}
 
-Criterio adoptado: 
+Criterio adoptado: se tomarán medidas de mitigación en los riesgos cuyo RPN sea mayor a 40. Los riesgos 2, 3 y 5 quedan por debajo del umbral y se revisarán en cada retrospectiva.
 
-Se tomarán medidas de mitigación en los riesgos cuyos números de RPN sean mayores a...
+Nota: los valores marcados con (*) corresponden a la estimación posterior a la aplicación de la mitigación.
 
-Nota: los valores marcados con (*) en la tabla corresponden luego de haber aplicado la mitigación.
+\subsection{Plan de mitigación}
 
-c) Plan de mitigación de los riesgos que originalmente excedían el RPN máximo establecido:
- 
-Riesgo 1: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
-  Nueva asignación de S y O, con su respectiva justificación:
-  \begin{itemize}
-	\item Severidad (S*): mientras más severo, más alto es el número (usar números del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de severidad (S).
-	\item Probabilidad de ocurrencia (O*): mientras más probable, más alto es el número (usar del 1 al 10).
-          Justificar el motivo por el cual se asigna determinado número de (O).
-	\end{itemize}
+Riesgo 1: se relevarán candidatos de manera anticipada con parte de la reserva de contingencia de los sprints 3 y 4, lo que reducirá la ocurrencia. Además, se definirá como alternativa un subconjunto reducido de una categoría de Amazon Reviews'23, con menos atributos, que simule el caso de un cliente con pocos datos propios, lo que reducirá la severidad.
+\begin{itemize}
+  \item Severidad (S*): 6. La alternativa permite validar el enfoque aunque no aparezca un dataset independiente, si bien con un caso de uso menos realista.
+  \item Ocurrencia (O*): 3. La búsqueda comienza cuatro sprints antes de lo previsto, lo que deja margen para evaluar otras opciones.
+\end{itemize}
 
-Riesgo 2: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
- 
-Riesgo 3: plan de mitigación (si por el RPN fuera necesario elaborar un plan de mitigación).
-
-\end{consigna}
+Riesgo 4: se filtrarán para el entrenamiento los usuarios y los ítems con un mínimo de interacciones, lo que reducirá la ocurrencia. Además, se incorporará un fallback basado en popularidad para los usuarios nuevos y se usará el score de confianza de HU4 para omitir las recomendaciones con poca evidencia, lo que reducirá la severidad.
+\begin{itemize}
+  \item Severidad (S*): 4. Aunque el problema ocurra, el sistema evita mostrar recomendaciones poco fundadas.
+  \item Ocurrencia (O*): 6. El filtrado atenúa la dispersión en el entrenamiento, pero no la elimina, porque es propia de los datos de reseñas.
+\end{itemize}
 
 \section{14. Sprint Review}
 \label{sec:sprint_review}
 
-La revisión de sprint (\emph{Sprint Review}) es una práctica fundamental en metodologías ágiles. Consiste en revisar y evaluar lo que se ha completado al finalizar un sprint. En esta instancia, se presentan los avances y se verifica si las funcionalidades cumplen con los criterios de aceptación establecidos. También se identifican entregables parciales y se consideran ajustes si es necesario.
+Al cierre de cada sprint se realizará una revisión en la que el alumno presentará al tutor los avances y verificará si las funcionalidades cumplen con los criterios de aceptación de la sección \ref{sec:criteriosAceptacion}. Aunque el proyecto todavía se encuentra en etapa de planificación, esta sección proyecta cómo se evaluarán cuatro historias de usuario representativas del backlog. Se eligieron HU1, HU3, HU5 y HU7 porque cubren el perfilado, la recomendación, el pre entrenamiento y la exposición vía API, que son los componentes principales del sistema.
 
-Aunque el proyecto aún se encuentre en etapa de planificación, esta sección permite proyectar cómo se evaluarán las funcionalidades más importantes del backlog. Esta mirada anticipada favorece la planificación enfocada en valor y permite reflexionar sobre posibles obstáculos.
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.07\linewidth}|>{\raggedright\arraybackslash}p{0.24\linewidth}|>{\raggedright\arraybackslash}p{0.17\linewidth}|>{\raggedright\arraybackslash}p{0.20\linewidth}|>{\raggedright\arraybackslash}p{0.18\linewidth}|}
+\hline
+\rowcolor[HTML]{C0C0C0}
+HU & Tareas asociadas & Entregable esperado & ¿Cómo se sabrá que está cumplida? & Observaciones o riesgos \\ \hline
+\endfirsthead
+\hline
+\rowcolor[HTML]{C0C0C0}
+HU & Tareas asociadas & Entregable esperado & ¿Cómo se sabrá que está cumplida? & Observaciones o riesgos \\ \hline
+\endhead
+HU1 & Análisis exploratorio de las reseñas, extracción y limpieza de los datos, cálculo de recencia, frecuencia y valor monetario, tratamiento de outliers, normalización y definición de los umbrales de segmentación. & Módulo de perfilado que asigna a cada usuario un segmento RFM documentado. & Se cumplen los criterios de aceptación de HU1 y al menos el 80\% de los usuarios con reseñas queda segmentado sin valores nulos. & El valor monetario se estima mediante un proxy, porque el dataset contiene reseñas y no transacciones. \\ \hline
+HU3 & Análisis exploratorio de ítems e interacciones, diseño del esquema de salida, construcción de las señales colaborativa, de contenido y de co-compra, entrenamiento del ranker y filtrado de ítems ya comprados. & Recomendador híbrido que devuelve un ranking de ítems con la traza de las señales que lo originaron. & El ranking híbrido supera a cada señal aislada en precision@10 o NDCG@10 y no repite ítems ya comprados. & Es la historia de mayor carga del backlog. La escasez de interacciones y el cold-start pueden afectar la calidad del ranking. \\ \hline
+HU5 & Consolidación del perfilador y del recomendador en un único artefacto, definición de la métrica y del conjunto de validación, evaluación de punta a punta y versionado de los artefactos. & Modelo pre entrenado sobre Amazon Reviews'23, versionado y acompañado de un reporte de evaluación. & El modelo supera a un baseline aleatorio o de popularidad en el conjunto de validación y sus artefactos pueden reutilizarse en HU6. & El volumen del dataset puede exceder el cómputo disponible, por lo que puede ser necesario trabajar sobre una muestra por categorías. \\ \hline
+HU7 & Diseño de los contratos de \texttt{get\_profile} y \texttt{recommend}, implementación de ambos endpoints, definición de la estrategia de versionado y pruebas de punta a punta. & API con dos endpoints documentados y versionados. & El 100\% de las pruebas completa el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y \texttt{recommend} responde en menos de 2 segundos. & El tiempo de respuesta depende del tamaño del modelo. Si se excede el límite, se evaluará precalcular parte de los rankings. \\ \hline
+\caption{Revisión proyectada de las historias de usuario seleccionadas.}
+\label{tab:sprintReview}
+\end{longtable}
 
-Objetivo: anticipar cómo se evaluará el avance del proyecto a medida que se desarrollen las funcionalidades, utilizando como base al menos cuatro historias de usuario del \emph{Product Backlog}.
-
-
-Seleccionar al menos 4 HU del Product Backlog. Para cada una, completar la siguiente tabla de revisión proyectada:
-
-Formato sugerido:
-\begin{table}[htpb]
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|>{\raggedright\arraybackslash}m{2.4cm}|
-                >{\raggedright\arraybackslash}m{2.3cm}|
-                >{\raggedright\arraybackslash}m{3cm}|
-                >{\raggedright\arraybackslash}m{3cm}|
-                >{\raggedright\arraybackslash}m{3cm}|}
-\hline
-\rowcolor[HTML]{CCCCCC}
-HU seleccionada & Tareas asociadas & Entregable esperado & ¿Cómo sabrás que está cumplida? & Observaciones o riesgos \\
-\hline
-                         & Tarea 1 &                             &                                           &                                     \\ \cline{2-2}
-\multirow{-2}{=}{HU1}    & Tarea 2 & \multirow{-2}{=}{Módulo funcional} & \multirow{-2}{=}{Cumple criterios de aceptación definidos} & \multirow{-2}{=}{Falta validar con el tutor} \\
-\hline
-                         & Tarea 1 &                             &                                           &                                     \\ \cline{2-2}
-\multirow{-2}{=}{HU3}    & Tarea 2 & \multirow{-2}{=}{Reporte generado} & \multirow{-2}{=}{Exportación disponible y clara} & \multirow{-2}{=}{Requiere datos reales} \\
-\hline
-                         & Tarea 1 &                             &                                           &                                     \\ \cline{2-2}
-\multirow{-2}{=}{HU5}    & Tarea 2 & \multirow{-2}{=}{Panel de gestión} & \multirow{-2}{=}{Roles diferenciados operativos} & \multirow{-2}{=}{Riesgo en integración} \\
-\hline
-                         & Tarea 1 &                             &                                           &                                     \\ \cline{2-2}
-\multirow{-2}{=}{HU7}    & Tarea 2 & \multirow{-2}{=}{Informe trimestral} & \multirow{-2}{=}{PDF con gráficos y evolución} & \multirow{-2}{=}{Puede faltar tiempo para ajustes} \\
-\hline
-\end{tabular}
-\end{table}
-
-\section{15. Sprint Retrospective}    
+\section{15. Sprint Retrospective}
 \label{sec:sprint_retro}
 
-La retrospectiva de sprint es una práctica orientada a la mejora continua. Al finalizar un sprint, el equipo (o el alumno, si trabaja de forma individual) reflexiona sobre lo que funcionó bien, lo que puede mejorarse y qué acciones concretas pueden implementarse para trabajar mejor en el futuro.
+Como el desarrollo todavía no comenzó, la tabla \ref{tab:sprintRetro} anticipa la retrospectiva de tres sprints técnicos y uno no técnico. Se eligieron el sprint 1, que corresponde al primer contacto con el dataset, el sprint 4, que concentra el entrenamiento de las señales del recomendador, el sprint 8, en el que se ejecuta el transfer learning, y el sprint 10, que incluye la preparación de la defensa.
 
-Durante la cursada se propuso el uso de la Estrella de la Retrospectiva, que organiza la reflexión en torno a cinco ejes:
-
-\begin{itemize}
-\item  ¿Qué hacer más?
-\item  ¿Qué hacer menos?
-\item  ¿Qué mantener?
-\item  ¿Qué empezar a hacer?
-\item  ¿Qué dejar de hacer?
-\end{itemize}
-
-Aun en una etapa temprana, esta herramienta permite que el alumno planifique su forma de trabajar, identifique anticipadamente posibles dificultades y diseñe estrategias de organización personal.
-
-Objetivo: reflexionar sobre las condiciones iniciales del proyecto, identificando fortalezas, posibles dificultades y estrategias de mejora, incluso antes del inicio del desarrollo.
-
-
-Completar la siguiente tabla tomando como referencia los cinco ejes de la Estrella de la Retrospectiva (\emph{Starfish} o estrella de mar). Esta instancia te ayudará a definir buenas prácticas desde el inicio y prepararte para enfrentar el trabajo de forma organizada y flexible. Se deberá completar la tabla al menos para 3 sprints técnicos y 1 no técnico.
-
-Formato sugerido:
-
-\begin{table}[htpb]
-\renewcommand{\arraystretch}{1.4}
-\begin{tabular}{|>{\raggedright\arraybackslash}p{1.8cm}|
-                >{\raggedright\arraybackslash}p{2.3cm}|
-                >{\raggedright\arraybackslash}p{2.3cm}|
-                >{\raggedright\arraybackslash}p{2.3cm}|
-                >{\raggedright\arraybackslash}p{2.3cm}|
-                >{\raggedright\arraybackslash}p{2.3cm}|}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.12\linewidth}|>{\raggedright\arraybackslash}p{0.135\linewidth}|>{\raggedright\arraybackslash}p{0.135\linewidth}|>{\raggedright\arraybackslash}p{0.135\linewidth}|>{\raggedright\arraybackslash}p{0.135\linewidth}|>{\raggedright\arraybackslash}p{0.135\linewidth}|}
 \hline
-\rowcolor[HTML]{CCCCCC} 
-Sprint tipo y N° & ¿Qué hacer más? & ¿Qué hacer menos? & ¿Qué mantener? & ¿Qué empezar a hacer? & ¿Qué dejar de hacer? \\
+\rowcolor[HTML]{C0C0C0}
+Sprint & ¿Qué hacer más? & ¿Qué hacer menos? & ¿Qué mantener? & ¿Qué empezar a hacer? & ¿Qué dejar de hacer? \\ \hline
+\endfirsthead
 \hline
-Sprint técnico - 1 & Validaciones continuas con el alumno & Cambios sin versión registrada & Pruebas con datos simulados & Documentar cambios propuestos & Ajustes sin análisis de impacto \\
-\hline
-Sprint técnico - 2 & Verificar configuraciones en múltiples escenarios & Modificar parámetros sin guardar historial & Perfiles reutilizables & Usar logs para configuración & Repetir pruebas manuales innecesarias \\
-\hline
-Sprint técnico - 8 & Comparar correlaciones con casos previos & Cambiar parámetros sin justificar & Revisión cruzada de métricas & Anotar configuraciones usadas & Trabajar sin respaldo de datos \\
-\hline
-Sprint no técnico - 12 (por ej.: ``Defensa'') & Ensayos orales con feedback & Cambiar contenidos en la memoria & Material visual claro & Dividir la presentación por bloques & Agregar gráficos difíciles de explicar \\
-\hline
-\end{tabular}
-\end{table}
-
-
+\rowcolor[HTML]{C0C0C0}
+Sprint & ¿Qué hacer más? & ¿Qué hacer menos? & ¿Qué mantener? & ¿Qué empezar a hacer? & ¿Qué dejar de hacer? \\ \hline
+\endhead
+Sprint técnico 1 & Explorar muestras reducidas antes de procesar el dataset completo. & Limpiezas manuales sin registrar. & El registro de las decisiones de limpieza. & Fijar semillas y versionar los scripts de extracción. & Postergar la redacción de la memoria hasta el cierre del sprint. \\ \hline
+Sprint técnico 4 & Comparar cada señal contra un baseline de popularidad. & Pruebas de hiperparámetros sin registro. & El esquema de salida definido en el sprint 3. & Registrar cada experimento con su configuración y su métrica. & Entrenar sobre el dataset completo sin validar antes con una muestra. \\ \hline
+Sprint técnico 8 & Comparar el modelo dedicado y el de referencia sobre la misma partición de datos. & Ajustes que favorezcan a uno de los dos modelos en la comparación. & El versionado de los artefactos del modelo pre entrenado. & Documentar los resultados negativos como hallazgos del trabajo. & Cambiar el dataset acotado a mitad del experimento. \\ \hline
+Sprint no técnico 10 & Ensayos cronometrados de la exposición. & Agregados de contenido nuevo a la memoria. & Diagramas simples, como el de la figura \ref{fig:diagrama_basico}. & Preparar respuestas a las preguntas previsibles sobre los resultados. & Modificar el prototipo en los días previos a la defensa. \\ \hline
+\caption{Retrospectiva proyectada para tres sprints técnicos y uno no técnico.}
+\label{tab:sprintRetro}
+\end{longtable}
 
 
 \end{document}
