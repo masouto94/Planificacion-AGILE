@@ -30,7 +30,7 @@
  
 \fechaINICIO{25 de agosto de 2026}		%Fecha de inicio de la cursada de GdP \fechaInicioName
 \fechaFINALPlan{13 de octubre de 2026} 	%Fecha de final de cursada de GdP
-\fechaFINALTrabajo{Abril de 2027}	%Fecha de defensa pública del trabajo final
+\fechaFINALTrabajo{abril de 2027}	%Fecha de defensa pública del trabajo final
 
 
 \begin{document}
@@ -61,6 +61,7 @@ Revisión & \multicolumn{1}{c|}{\cellcolor[HTML]{C0C0C0}Detalles de los cambios 
 0      & Creación del documento                                 &\fechaInicioName \\ \hline
 1      & Se completa hasta el punto 5 inclusive                & 6 de septiembre de 2026 \\ \hline
 2      & Se completa hasta el punto 9 inclusive & 13 de septiembre de 2026 \\ \hline
+3      & Se completa hasta el punto 12 inclusive & 20 de septiembre de 2026 \\ \hline
 %		  Se puede agregar algo más \newline
 %		  En distintas líneas \newline
 %		  Así                                                    & {día} de {mes} de 202X \ \hline
@@ -119,7 +120,7 @@ En la figura \ref{fig:diagrama_basico} se presenta el diagrama en bloques del si
 
 \begin{figure}[htpb]
 \centering
-\includegraphics[width=.65\textwidth]{./Figuras/diagrama_basico.png}
+\includegraphics[width=\textwidth]{./Figuras/diagrama_basico.png}
 \caption{Diagrama del sistema.}
 \label{fig:diagrama_basico}
 \end{figure}
@@ -131,7 +132,7 @@ Se trata de un desarrollo desde cero que se llevará hasta el nivel de prueba de
 \section{2. Identificación y análisis de los interesados}
 \label{sec:interesados}
 
-\begin{table}[ht]
+\begin{table}[H]
 \begin{tabularx}{\linewidth}{@{}|l|X|X|X|@{}}
 \hline
 \rowcolor[HTML]{C0C0C0}
@@ -198,27 +199,27 @@ Para el desarrollo del presente proyecto se supone que:
 El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias de usuario. El criterio para la asignación de story points fue la escala Fibonacci (1-2-3-5-8-13). Por lo tanto, solo se podrán asignar esos valores. Se pondera la complejidad técnica, el nivel de incertidumbre y la experiencia previa del alumno.
 
 \begin{itemize}
-  \item \textbf{\'{E}pica 1 --- Perfilado de usuarios}
+  \item \'{E}pica 1 --- Perfilado de usuarios
     \begin{itemize}
-      \item \textbf{HU1} (Prioridad: alta, 8 SP): como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.
-      \item \textbf{HU2} (Prioridad: media, 5 SP): como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.
+      \item HU1 (Prioridad: alta, 8 SP): como responsable del proyecto, quiero calcular las variables RFM (recencia, frecuencia, valor monetario) de cada usuario a partir de sus reseñas para poder clasificarlo según su comportamiento de consumo.
+      \item HU2 (Prioridad: media, 5 SP): como responsable del proyecto, quiero enriquecer el perfil RFM con atributos de comportamiento adicionales. Por ejemplo, categorías más frecuentes, o recencia por categoría para mejorar la calidad de la segmentación.
     \end{itemize}
-  \item \textbf{\'{E}pica 2 --- Motor de recomendación híbrido}
+  \item \'{E}pica 2 --- Motor de recomendación híbrido
     \begin{itemize}
-      \item \textbf{HU3} (Prioridad: alta, 13 SP): como agente conversacional, quiero recibir un ranking de ítems que combine señales colaborativas, de contenido y de co-compra, para poder ofrecer recomendaciones más relevantes que con un solo enfoque aislado.
-      \item \textbf{HU4} (Prioridad: media, 5 SP): como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.
+      \item HU3 (Prioridad: alta, 13 SP): como agente conversacional, quiero recibir un ranking de ítems que combine señales colaborativas, de contenido y de co-compra, para poder ofrecer recomendaciones más relevantes que con un solo enfoque aislado.
+      \item HU4 (Prioridad: media, 5 SP): como agente conversacional, quiero recibir un score de confianza junto con cada recomendación, para poder decidir cuándo mostrarla u ofrecer alternativas.
     \end{itemize}
-  \item \textbf{\'{E}pica 3 --- Transfer learning entre modelos}
+  \item \'{E}pica 3 --- Transfer learning entre modelos
     \begin{itemize}
-      \item \textbf{HU5} (Prioridad: alta, 13 SP): como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
-      \item \textbf{HU6} (Prioridad: alta, 13 SP): como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
+      \item HU5 (Prioridad: alta, 13 SP): como responsable del proyecto, quiero entrenar un modelo sobre el dataset Amazon Reviews'23 para contar con una base amplia de productos y perfiles de usuario.
+      \item HU6 (Prioridad: alta, 13 SP): como responsable del proyecto, quiero ajustar un modelo dedicado a partir del pre entrenado sobre un dataset más acotado para validar que se pueden lograr buenas recomendaciones con menos datos.
     \end{itemize}
-  \item \textbf{\'{E}pica 4 --- Exposición vía API y prueba de concepto}
+  \item \'{E}pica 4 --- Exposición vía API y prueba de concepto
     \begin{itemize}
-      \item \textbf{HU7} (Prioridad: alta, 8 SP): como agente conversacional, quiero consultar
+      \item HU7 (Prioridad: alta, 8 SP): como agente conversacional, quiero consultar
       
       \texttt{get\_profile(user)} y \texttt{recommend(context)} a través de un contrato de API estable para poder recomendar productos sin conocer el detalle interno del motor.
-      \item \textbf{HU8} (Prioridad: media, 8 SP): como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada para validar que el sistema funciona de punta a punta.
+      \item HU8 (Prioridad: media, 8 SP): como usuario final, quiero recibir recomendaciones de productos dentro de una conversación de compra simulada para validar que el sistema funciona de punta a punta.
     \end{itemize}
 \end{itemize}
 
@@ -226,71 +227,71 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \label{sec:criteriosAceptacion}
 
 \begin{itemize}
-  \item \textbf{\'{E}pica 1}
+  \item \'{E}pica 1
     \begin{itemize}
-      \item \textbf{HU1}:
+      \item HU1:
         \begin{enumerate}[label=(\alph*)]
-          \item para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos.
-          \item los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada.
-          \item el usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''.
+          \item Para todo usuario con al menos una reseña, se calculan recencia, frecuencia y valor monetario sin valores nulos.
+          \item Los tres valores se normalizan en una escala común y el cálculo es reproducible ante los mismos datos de entrada.
+          \item El usuario queda asignado a un segmento RFM discreto y documentado. Por ejemplo, ``cliente valioso'', ``cliente en riesgo'' o ``cliente nuevo''.
         \end{enumerate}
         El criterio de éxito será que al menos el 80\% de los usuarios con reseñas registradas queda correctamente segmentado, sin valores nulos ni indefinidos.
-      \item \textbf{HU2}:
+      \item HU2:
         \begin{enumerate}[label=(\alph*)]
-          \item el perfil incluye al menos dos atributos de comportamiento adicionales a RFM.
-          \item dichos atributos no duplican información ya cubierta por RFM.
-          \item se documenta el criterio de selección y el rango de valores esperado de cada atributo.
+          \item El perfil incluye al menos dos atributos de comportamiento adicionales a RFM.
+          \item Dichos atributos no duplican información ya cubierta por RFM.
+          \item Se documenta el criterio de selección y el rango de valores esperado de cada atributo.
         \end{enumerate}
         El criterio de éxito será que los atributos adicionales mejoren la separación entre segmentos respecto de usar solo RFM. Por ejemplo, mayor distancia o cohesión entre clústers.
     \end{itemize}
-  \item \textbf{\'{E}pica 2}
+  \item \'{E}pica 2
     \begin{itemize}
-      \item \textbf{HU3}:
+      \item HU3:
         \begin{enumerate}[label=(\alph*)]
-          \item dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales.
-          \item cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score.
-          \item el ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente.
+          \item Dado un perfil de usuario, se devuelve un ranking de al menos N ítems combinando las tres señales.
+          \item Cada ítem recomendado incluye la traza de qué señal(es) contribuyeron a su score.
+          \item El ranking no repite ítems ya comprados o reseñados por el usuario, salvo que se solicite explícitamente.
         \end{enumerate}
         El criterio de éxito será que el ranking híbrido obtenga una métrica de calidad superior a la de cualquiera de las tres señales evaluadas de forma aislada. Por ejemplo, mejor precisión de clasificación (precision@10) o mejor NDCG@10.
-      \item \textbf{HU4}:
+      \item HU4:
         \begin{enumerate}[label=(\alph*)]
-          \item cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí.
-          \item el score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo.
-          \item existe un umbral configurable por debajo del que la recomendación puede omitirse.
+          \item Cada recomendación devuelta incluye un score de confianza numérico en un rango definido. Un buen rango es $[0,1]$ ya que está normalizado y facilita comparar recomendaciones entre sí.
+          \item El score decrece de forma consistente ante menor evidencia disponible, como sería en el caso de un usuario nuevo.
+          \item Existe un umbral configurable por debajo del que la recomendación puede omitirse.
         \end{enumerate}
         El criterio de éxito será que aplicar el umbral de confianza reduzca la proporción de recomendaciones de baja relevancia sin descartar más del 20\% de las recomendaciones totales.
     \end{itemize}
-  \item \textbf{\'{E}pica 3}
+  \item \'{E}pica 3
     \begin{itemize}
-      \item \textbf{HU5}:
+      \item HU5:
         \begin{enumerate}[label=(\alph*)]
-          \item se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período).
-          \item se reporta al menos una métrica de calidad sobre un conjunto de validación.
-          \item el modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado.
+          \item Se documenta la muestra de Amazon Reviews'23 utilizada (tamaño, categorías, período).
+          \item Se reporta al menos una métrica de calidad sobre un conjunto de validación.
+          \item El modelo y sus artefactos (pesos, features) quedan versionados y son reutilizables por el modelo dedicado.
         \end{enumerate}
         El criterio de éxito será que el modelo pre entrenado supere a un baseline aleatorio o de popularidad en la métrica de calidad reportada sobre el conjunto de validación.
-      \item \textbf{HU6}:
+      \item HU6:
         \begin{enumerate}[label=(\alph*)]
-          \item se declara explícitamente el dataset acotado utilizado para el ajuste.
-          \item se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero.
-          \item el proceso de ajuste es reproducible sobre el mismo dataset acotado.
+          \item Se declara explícitamente el dataset acotado utilizado para el ajuste.
+          \item Se compara al menos una métrica de calidad entre el modelo dedicado y una alternativa entrenada desde cero.
+          \item El proceso de ajuste es reproducible sobre el mismo dataset acotado.
         \end{enumerate}
         El criterio de éxito será que el modelo dedicado iguale o supere la métrica de calidad del modelo entrenado desde cero, usando el mismo dataset acotado, lo que validaría la ganancia del transfer learning.
     \end{itemize}
-  \item \textbf{\'{E}pica 4}
+  \item \'{E}pica 4
     \begin{itemize}
-      \item \textbf{HU7}:
+      \item HU7:
         \begin{enumerate}[label=(\alph*)]
           \item \texttt{get\_profile(user)} responde en un formato de contrato documentado.
           \item \texttt{recommend(context)} responde un ranking en formato documentado dentro de un tiempo inferior a 2 segundos en la prueba de concepto.
-          \item ambos contratos se mantienen estables ante cambios internos del motor, y se versionan si cambian.
+          \item Ambos contratos se mantienen estables ante cambios internos del motor, y se versionan si cambian.
         \end{enumerate}
         El criterio de éxito será que el 100\% de las pruebas realizadas completen el ciclo \texttt{get\_profile} → \texttt{recommend} sin errores y dentro del tiempo de respuesta acotado.
-      \item \textbf{HU8}:
+      \item HU8:
         \begin{enumerate}[label=(\alph*)]
-          \item un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente.
-          \item el flujo de punta a punta queda documentado con al menos un ejemplo registrado.
-          \item se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto.
+          \item Un usuario simulado recibe al menos una recomendación dentro de una conversación con el agente.
+          \item El flujo de punta a punta queda documentado con al menos un ejemplo registrado.
+          \item Se documentan al menos dos casos límite, como un usuario nuevo o un ítem sin metadata, y cómo los maneja la prueba de concepto.
         \end{enumerate}
         El criterio de éxito será que al menos una conversación simulada de punta a punta concluya con una recomendación mostrada al usuario, incluyendo el manejo correcto de los casos límite documentados.
     \end{itemize}
@@ -299,12 +300,12 @@ El Product Backlog se organiza en cuatro \'{e}picas, cada una con dos historias 
 \section{8. Fases de CRISP-DM}
 
 \begin{enumerate}
-  \item \textbf{Comprensión del negocio:} el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail. El valor agregado de la IA es habilitar una experiencia de vendedor proactivo. Las métricas de éxito son la calidad de las recomendaciones y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
-  \item \textbf{Comprensión de los datos:} el dataset principal es Amazon Reviews'23, que contiene reseñas, calificaciones y metadata de productos. Se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
-  \item \textbf{Preparación de los datos:} construcción de las features RFM por usuario, filtrado o marcado de ítems con metadata incompleta, y diseño del esquema de persistencia en PostgreSQL, que incluye reviews, perfiles, ítems en formato JSONB y una tabla de co-compra.
-  \item \textbf{Modelado:} el modelado se aborda como un problema híbrido, combinando perfilado mediante segmentación RFM y recomendación mediante enfoques colaborativo, de contenido y de co-compra. Además, se aplicará transfer learning entre un modelo pre entrenado sobre un dataset extenso y un modelo dedicado ajustado sobre un dataset acotado.
-  \item \textbf{Evaluación del modelo:} se medirá la calidad de los rankings de recomendación y de la segmentación RFM, comparando el modelo dedicado contra una versión entrenada desde cero para validar la ganancia del transfer learning.
-  \item \textbf{Despliegue del modelo:} para esta prueba de concepto, el despliegue se limita a exponer el motor vía una API simple consumida por un agente conversacional de prueba (API sobre Claude), sin publicación en infraestructura productiva.
+  \item Comprensión del negocio: el objetivo es perfilar usuarios y generar recomendaciones híbridas relevantes dentro de un flujo conversacional de retail. El valor agregado de la IA es habilitar una experiencia de vendedor proactivo. Las métricas de éxito son la calidad de las recomendaciones y evidencia de que el modelo dedicado supera a uno entrenado desde cero con menos datos.
+  \item Comprensión de los datos: el dataset principal es Amazon Reviews'23, que contiene reseñas, calificaciones y metadata de productos. Se releva su volumen, cobertura de metadata y el sesgo propio de basarse en reseñas, ya que solo se observa al usuario que dejó reseña.
+  \item Preparación de los datos: construcción de las features RFM por usuario, filtrado o marcado de ítems con metadata incompleta, y diseño del esquema de persistencia en PostgreSQL, que incluye reviews, perfiles, ítems en formato JSONB y una tabla de co-compra.
+  \item Modelado: el modelado se aborda como un problema híbrido, combinando perfilado mediante segmentación RFM y recomendación mediante enfoques colaborativo, de contenido y de co-compra. Además, se aplicará transfer learning entre un modelo pre entrenado sobre un dataset extenso y un modelo dedicado ajustado sobre un dataset acotado.
+  \item Evaluación del modelo: se medirá la calidad de los rankings de recomendación y de la segmentación RFM, comparando el modelo dedicado contra una versión entrenada desde cero para validar la ganancia del transfer learning.
+  \item Despliegue del modelo: para esta prueba de concepto, el despliegue se limita a exponer el motor vía una API simple consumida por un agente conversacional de prueba (API sobre Claude), sin publicación en infraestructura productiva.
 \end{enumerate}
 
 \section{9. Desglose del trabajo en tareas}
@@ -350,7 +351,7 @@ HU5 & Versionar y persistir los artefactos del modelo pre entrenado para que el 
 HU6 & Identificar o construir un dataset más acotado, con menor volumen o riqueza de atributos, adecuado para el ajuste & 6 h & Alta \\ \hline
 HU6 & Definir el alcance del modelo dedicado: qué componentes del pre entrenado se reutilizan y cuáles se reentrenan/ajustan & 4 h & Alta \\ \hline
 HU6 & Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado & 8 h & Alta \\ \hline
-HU6 & Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, para tener con qué comparar & 6 h & Alta \\ \hline
+HU6 & Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, como línea base de comparación & 6 h & Alta \\ \hline
 HU6 & Comparar las métricas de calidad entre el modelo dedicado y el modelo entrenado desde cero, y documentar la diferencia & 4 h & Alta \\ \hline
 HU6 & Validar que el proceso de ajuste es reproducible sobre el mismo dataset acotado & 3 h & Media \\ \hline
 HU7 & Diseñar y documentar el contrato de \texttt{get\_profile(user)} (esquema de entrada/salida) & 3 h & Alta \\ \hline
@@ -360,11 +361,11 @@ HU7 & Implementar el endpoint \texttt{recommend(context)} sobre el recomendador 
 HU7 & Definir una estrategia de versionado del contrato ante cambios internos del motor & 3 h & Media \\ \hline
 HU7 & Probar ambos endpoints de punta a punta, midiendo tiempos de respuesta y formatos, y documentar los resultados & 3 h & Alta \\ \hline
 HU8 & Diseñar el flujo conversacional básico de la prueba de concepto, que incluye saludo, búsqueda, recomendación y cierre & 3 h & Media \\ \hline
-HU8 & Implementar el agente orquestador sobre la API de Claude, con las tools \texttt{get\_profile}/\texttt{recommend} definidas & 6 h & Media \\ \hline
+HU8 & Implementar el agente orquestador sobre la API de Claude, con las herramientas \texttt{get\_profile}/\texttt{recommend} definidas & 6 h & Media \\ \hline
 HU8 & Integrar el agente con la API del motor (llamadas reales a \texttt{get\_profile}/\texttt{recommend}) & 4 h & Media \\ \hline
 HU8 & Definir escenarios de prueba simulados que cubran un usuario recurrente, un usuario nuevo o cold-start, y un ítem sin metadata & 3 h & Media \\ \hline
 HU8 & Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción) & 2 h & Media \\ \hline
-HU8 & Documentar cómo la prueba de concepto maneja los casos límite identificados & 2 h & Media \\ \hline
+HU8 & Documentar la manera en que la prueba de concepto maneja los casos límite identificados & 2 h & Media \\ \hline
 \caption{Desglose de tareas por historia de usuario. Total estimado: 177 h.}
 \end{longtable}
 
@@ -373,88 +374,111 @@ HU8 & Documentar cómo la prueba de concepto maneja los casos límite identifica
 
 La carga horaria total del proyecto se estima en 600 horas. Las tareas técnicas definidas en la sección \ref{sec:wbs} suman 177 horas. Para cubrir la incertidumbre propia de un trabajo individual y de un dominio que el alumno explora por primera vez, esa estimación se duplicó al planificar los sprints, lo que da 354 horas técnicas. Las 246 horas restantes se destinan a tareas no técnicas, como la planificación, la redacción de la memoria, el seguimiento con el tutor, la preparación de la defensa y una reserva de contingencia.
 
-El Sprint 0 corresponde a la planificación y se extiende desde el inicio de la cursada hasta la entrega del plan. Los Sprints 1 a 10 duran dos semanas cada uno y concentran entre 50 y 55 horas efectivas. Al ser un proyecto individual, el responsable de todas las tareas es el propio alumno. El porcentaje de avance se actualizará en cada revisión.
+El sprint 0 corresponde a la planificación y se extiende desde el inicio de la cursada hasta la entrega del plan. Los sprints 1 a 10 duran dos semanas cada uno y concentran entre 50 y 55 horas efectivas. Al ser un proyecto individual, el responsable de todas las tareas es el propio alumno. El porcentaje de avance se actualizará en cada revisión.
 
-\begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.17\linewidth}|>{\raggedright\arraybackslash}p{0.33\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.12\linewidth}|>{\centering\arraybackslash}p{0.10\linewidth}|}
+\begin{longtable}{|>{\raggedright\arraybackslash}p{0.10\linewidth}|>{\raggedright\arraybackslash}p{0.17\linewidth}|>{\raggedright\arraybackslash}p{0.43\linewidth}|>{\centering\arraybackslash}p{0.07\linewidth}|>{\centering\arraybackslash}p{0.09\linewidth}|}
 \hline
 \rowcolor[HTML]{C0C0C0}
-Sprint & HU o fase & Tarea & Horas & Responsable & Avance \\ \hline
+Sprint & HU o fase & Tarea & Horas & Avance \\ \hline
 \endfirsthead
 \hline
 \rowcolor[HTML]{C0C0C0}
-Sprint & HU o fase & Tarea & Horas & Responsable & Avance \\ \hline
+Sprint & HU o fase & Tarea & Horas & Avance \\ \hline
 \endhead
-Sprint 0 & Planificación & Definir alcance y cronograma & 15 h & Alumno & 0\% \\ \hline
-Sprint 0 & Planificación & Redactar el plan de proyecto & 30 h & Alumno & 0\% \\ \hline
-Sprint 0 & Planificación & Reunión con el tutor y el cliente & 5 h & Alumno & 0\% \\ \hline
-Sprint 0 & Planificación & Ajuste de los entregables & 10 h & Alumno & 0\% \\ \hline
-Sprint 1 & HU1 & Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario & 8 h & Alumno & 0\% \\ \hline
-Sprint 1 & HU1 & Extraer y limpiar la fecha de reseña, el rating o monto, y el producto de cada reseña por usuario & 8 h & Alumno & 0\% \\ \hline
-Sprint 1 & HU1 & Calcular recencia y frecuencia por usuario & 6 h & Alumno & 0\% \\ \hline
-Sprint 1 & HU1 & Calcular valor monetario (o proxy, dado que el dataset son reseñas) por usuario & 6 h & Alumno & 0\% \\ \hline
-Sprint 1 & HU2 & Explorar candidatos de atributos de comportamiento adicionales, como categorías frecuentes, recencia por categoría y diversidad de compra & 6 h & Alumno & 0\% \\ \hline
-Sprint 1 & Documentación & Redactar la introducción y el contexto de la memoria & 16 h & Alumno & 0\% \\ \hline
-Sprint 1 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 2 & HU1 & Detectar y tratar outliers en las variables RFM (usuarios con actividad atípica) & 8 h & Alumno & 0\% \\ \hline
-Sprint 2 & HU1 & Normalizar las tres variables en una escala común y validar reproducibilidad & 6 h & Alumno & 0\% \\ \hline
-Sprint 2 & HU1 & Definir umbrales/quantiles de segmentación RFM y documentar los segmentos resultantes & 8 h & Alumno & 0\% \\ \hline
-Sprint 2 & HU2 & Diseñar el modelo de datos (esquema) del objeto ``perfil de usuario'', integrando las variables RFM y los atributos seleccionados & 8 h & Alumno & 0\% \\ \hline
-Sprint 2 & HU2 & Calcular los atributos seleccionados por usuario & 8 h & Alumno & 0\% \\ \hline
-Sprint 2 & Documentación & Redactar el capítulo de datos y perfilado RFM & 12 h & Alumno & 0\% \\ \hline
-Sprint 2 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 3 & HU2 & Validar, mediante un análisis de correlación y redundancia, que los nuevos atributos no dupliquen información ya cubierta por RFM & 6 h & Alumno & 0\% \\ \hline
-Sprint 3 & HU2 & Integrar los atributos calculados en el objeto perfil de usuario y documentar su rango esperado & 6 h & Alumno & 0\% \\ \hline
-Sprint 3 & HU3 & Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata & 8 h & Alumno & 0\% \\ \hline
-Sprint 3 & HU3 & Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem) & 6 h & Alumno & 0\% \\ \hline
-Sprint 3 & HU3 & Filtrar del ranking final los ítems ya comprados/reseñados por el usuario, salvo pedido explícito & 4 h & Alumno & 0\% \\ \hline
-Sprint 3 & Documentación & Redactar el capítulo de perfilado de usuarios & 12 h & Alumno & 0\% \\ \hline
-Sprint 3 & Contingencia & Buffer para desvíos del sprint & 8 h & Alumno & 0\% \\ \hline
-Sprint 3 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 4 & HU3 & Explorar y entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas & 16 h & Alumno & 0\% \\ \hline
-Sprint 4 & HU3 & Construir una señal de contenido, buscando ítems similares entre sí a partir de su categoría, sus atributos y su descripción & 16 h & Alumno & 0\% \\ \hline
-Sprint 4 & Documentación & Documentar técnicamente las señales del recomendador & 10 h & Alumno & 0\% \\ \hline
-Sprint 4 & Contingencia & Buffer para desvíos del sprint & 8 h & Alumno & 0\% \\ \hline
-Sprint 4 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 5 & HU3 & Construir una señal de co-compra, identificando qué ítems suelen comprarse juntos a partir de la tabla de co-compra & 12 h & Alumno & 0\% \\ \hline
-Sprint 5 & HU3 & Diseñar y entrenar un modelo dedicado (ranker) que combine las tres señales en un único score de recomendación & 16 h & Alumno & 0\% \\ \hline
-Sprint 5 & HU4 & Definir qué señales de evidencia disponible se usan para estimar la confianza, como la cantidad de señales activas, la cobertura de datos o el cold-start & 6 h & Alumno & 0\% \\ \hline
-Sprint 5 & Documentación & Redactar el capítulo del recomendador híbrido & 16 h & Alumno & 0\% \\ \hline
-Sprint 5 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 6 & HU4 & Diseñar la fórmula o heurística de score de confianza en función de esas señales & 6 h & Alumno & 0\% \\ \hline
-Sprint 6 & HU4 & Implementar el cálculo del score y exponerlo junto con cada recomendación & 6 h & Alumno & 0\% \\ \hline
-Sprint 6 & HU4 & Definir y calibrar un umbral configurable por debajo del que la recomendación se omite o se reemplaza por un fallback & 8 h & Alumno & 0\% \\ \hline
-Sprint 6 & HU5 & Consolidar el perfilador (HU1/HU2) y el recomendador híbrido (HU3/HU4), entrenados sobre Amazon Reviews'23, como un único artefacto ``modelo pre entrenado'' & 8 h & Alumno & 0\% \\ \hline
-Sprint 6 & HU5 & Evaluar el modelo pre entrenado de punta a punta (perfilado + recomendación) con una métrica de calidad sobre un conjunto de validación & 10 h & Alumno & 0\% \\ \hline
-Sprint 6 & Documentación & Documentar el pre entrenamiento y su evaluación & 12 h & Alumno & 0\% \\ \hline
-Sprint 6 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 7 & HU5 & Versionar y persistir los artefactos del modelo pre entrenado para que el modelo dedicado (HU6) pueda reutilizarlos & 6 h & Alumno & 0\% \\ \hline
-Sprint 7 & HU6 & Identificar o construir un dataset más acotado, con menor volumen o riqueza de atributos, adecuado para el ajuste & 12 h & Alumno & 0\% \\ \hline
-Sprint 7 & HU6 & Definir el alcance del modelo dedicado: qué componentes del pre entrenado se reutilizan y cuáles se reentrenan/ajustan & 8 h & Alumno & 0\% \\ \hline
-Sprint 7 & HU7 & Diseñar y documentar el contrato de \texttt{get\_profile(user)} (esquema de entrada/salida) & 6 h & Alumno & 0\% \\ \hline
-Sprint 7 & HU7 & Diseñar y documentar el contrato de \texttt{recommend(context)} (esquema de entrada/salida) & 6 h & Alumno & 0\% \\ \hline
-Sprint 7 & Contingencia & Buffer para desvíos del sprint & 12 h & Alumno & 0\% \\ \hline
-Sprint 7 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 8 & HU6 & Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado & 16 h & Alumno & 0\% \\ \hline
-Sprint 8 & HU6 & Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, para tener con qué comparar & 12 h & Alumno & 0\% \\ \hline
-Sprint 8 & HU6 & Comparar las métricas de calidad entre el modelo dedicado y el modelo entrenado desde cero, y documentar la diferencia & 8 h & Alumno & 0\% \\ \hline
-Sprint 8 & Documentación & Redactar el capítulo de transfer learning & 14 h & Alumno & 0\% \\ \hline
-Sprint 8 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 9 & HU6 & Validar que el proceso de ajuste es reproducible sobre el mismo dataset acotado & 6 h & Alumno & 0\% \\ \hline
-Sprint 9 & HU7 & Implementar el endpoint \texttt{get\_profile(user)} sobre el perfilador & 8 h & Alumno & 0\% \\ \hline
-Sprint 9 & HU7 & Implementar el endpoint \texttt{recommend(context)} sobre el recomendador & 8 h & Alumno & 0\% \\ \hline
-Sprint 9 & HU7 & Definir una estrategia de versionado del contrato ante cambios internos del motor & 6 h & Alumno & 0\% \\ \hline
-Sprint 9 & HU8 & Diseñar el flujo conversacional básico de la prueba de concepto, que incluye saludo, búsqueda, recomendación y cierre & 6 h & Alumno & 0\% \\ \hline
-Sprint 9 & Documentación & Redactar el capítulo de API y prueba de concepto & 8 h & Alumno & 0\% \\ \hline
-Sprint 9 & Documentación & Redactar las conclusiones de la memoria & 8 h & Alumno & 0\% \\ \hline
-Sprint 9 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU7 & Probar ambos endpoints de punta a punta, midiendo tiempos de respuesta y formatos, y documentar los resultados & 6 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU8 & Implementar el agente orquestador sobre la API de Claude, con las tools \texttt{get\_profile}/\texttt{recommend} definidas & 12 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU8 & Integrar el agente con la API del motor (llamadas reales a \texttt{get\_profile}/\texttt{recommend}) & 8 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU8 & Definir escenarios de prueba simulados que cubran un usuario recurrente, un usuario nuevo o cold-start, y un ítem sin metadata & 6 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU8 & Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción) & 4 h & Alumno & 0\% \\ \hline
-Sprint 10 & HU8 & Documentar cómo la prueba de concepto maneja los casos límite identificados & 4 h & Alumno & 0\% \\ \hline
-Sprint 10 & Defensa & Preparar la exposición y la defensa & 10 h & Alumno & 0\% \\ \hline
-Sprint 10 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & Alumno & 0\% \\ \hline
+Sprint 0 & Planificación & Definir el alcance del proyecto & 8 h & 0\% \\ \hline
+Sprint 0 & Planificación & Elaborar el cronograma & 7 h & 0\% \\ \hline
+Sprint 0 & Planificación & Redactar la descripción, los interesados, el propósito, el alcance y los supuestos del plan & 8 h & 0\% \\ \hline
+Sprint 0 & Planificación & Redactar el product backlog y los criterios de aceptación del plan & 8 h & 0\% \\ \hline
+Sprint 0 & Planificación & Redactar las fases de CRISP-DM y el desglose de tareas del plan & 7 h & 0\% \\ \hline
+Sprint 0 & Planificación & Redactar la planificación de sprints, el diagrama de Gantt, la gobernanza de datos y la gestión de riesgos del plan & 7 h & 0\% \\ \hline
+Sprint 0 & Planificación & Reunión con el tutor y el cliente & 5 h & 0\% \\ \hline
+Sprint 0 & Planificación & Ajustar las secciones 1 a 9 del plan según las devoluciones & 5 h & 0\% \\ \hline
+Sprint 0 & Planificación & Ajustar las secciones 10 a 15 del plan según las devoluciones & 5 h & 0\% \\ \hline
+Sprint 1 & HU1 & Realizar un análisis exploratorio de datos (EDA) sobre las reseñas del dataset, para entender distribución, calidad y cobertura por usuario & 8 h & 0\% \\ \hline
+Sprint 1 & HU1 & Extraer y limpiar la fecha de reseña, el rating o monto, y el producto de cada reseña por usuario & 8 h & 0\% \\ \hline
+Sprint 1 & HU1 & Calcular recencia y frecuencia por usuario & 6 h & 0\% \\ \hline
+Sprint 1 & HU1 & Calcular valor monetario (o proxy, dado que el dataset son reseñas) por usuario & 6 h & 0\% \\ \hline
+Sprint 1 & HU2 & Explorar candidatos de atributos de comportamiento adicionales, como categorías frecuentes, recencia por categoría y diversidad de compra & 6 h & 0\% \\ \hline
+Sprint 1 & Documentación & Redactar la introducción de la memoria & 8 h & 0\% \\ \hline
+Sprint 1 & Documentación & Redactar el contexto de la memoria & 8 h & 0\% \\ \hline
+Sprint 1 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 2 & HU1 & Detectar y tratar outliers en las variables RFM (usuarios con actividad atípica) & 8 h & 0\% \\ \hline
+Sprint 2 & HU1 & Normalizar las tres variables en una escala común y validar reproducibilidad & 6 h & 0\% \\ \hline
+Sprint 2 & HU1 & Definir umbrales/quantiles de segmentación RFM y documentar los segmentos resultantes & 8 h & 0\% \\ \hline
+Sprint 2 & HU2 & Diseñar el modelo de datos (esquema) del objeto ``perfil de usuario'', integrando las variables RFM y los atributos seleccionados & 8 h & 0\% \\ \hline
+Sprint 2 & HU2 & Calcular los atributos seleccionados por usuario & 8 h & 0\% \\ \hline
+Sprint 2 & Documentación & Redactar la descripción del dataset en la memoria & 6 h & 0\% \\ \hline
+Sprint 2 & Documentación & Redactar el cálculo y la segmentación RFM en la memoria & 6 h & 0\% \\ \hline
+Sprint 2 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 3 & HU2 & Validar, mediante un análisis de correlación y redundancia, que los nuevos atributos no dupliquen información ya cubierta por RFM & 6 h & 0\% \\ \hline
+Sprint 3 & HU2 & Integrar los atributos calculados en el objeto perfil de usuario y documentar su rango esperado & 6 h & 0\% \\ \hline
+Sprint 3 & HU3 & Realizar un EDA de ítems y de interacciones (compras/co-compra) para dimensionar sparsity y cobertura de metadata & 8 h & 0\% \\ \hline
+Sprint 3 & HU3 & Diseñar el esquema de salida del recomendador (ranking, score, señales que contribuyeron a cada ítem) & 6 h & 0\% \\ \hline
+Sprint 3 & HU3 & Filtrar del ranking final los ítems ya comprados/reseñados por el usuario, salvo pedido explícito & 4 h & 0\% \\ \hline
+Sprint 3 & Documentación & Redactar los atributos de comportamiento del perfil en la memoria & 6 h & 0\% \\ \hline
+Sprint 3 & Documentación & Redactar la integración y la validación del perfil de usuario en la memoria & 6 h & 0\% \\ \hline
+Sprint 3 & Contingencia & Buffer para desvíos del sprint & 8 h & 0\% \\ \hline
+Sprint 3 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 4 & HU3 & Explorar enfoques de filtrado colaborativo y preparar la matriz de interacciones usuario-ítem & 8 h & 0\% \\ \hline
+Sprint 4 & HU3 & Entrenar un modelo de filtrado colaborativo que aprenda afinidades usuario-ítem a partir del historial de reseñas & 8 h & 0\% \\ \hline
+Sprint 4 & HU3 & Construir la representación de cada ítem a partir de su categoría, sus atributos y su descripción & 8 h & 0\% \\ \hline
+Sprint 4 & HU3 & Calcular la similitud entre ítems y generar la señal de contenido & 8 h & 0\% \\ \hline
+Sprint 4 & Documentación & Documentar técnicamente la señal colaborativa & 5 h & 0\% \\ \hline
+Sprint 4 & Documentación & Documentar técnicamente la señal de contenido & 5 h & 0\% \\ \hline
+Sprint 4 & Contingencia & Buffer para desvíos del sprint & 8 h & 0\% \\ \hline
+Sprint 4 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 5 & HU3 & Procesar la tabla de co-compra para identificar qué ítems suelen comprarse juntos & 6 h & 0\% \\ \hline
+Sprint 5 & HU3 & Construir la señal de co-compra a partir de esos pares de ítems & 6 h & 0\% \\ \hline
+Sprint 5 & HU3 & Diseñar un modelo dedicado (ranker) que combine las tres señales en un único score de recomendación & 8 h & 0\% \\ \hline
+Sprint 5 & HU3 & Entrenar y validar el ranker & 8 h & 0\% \\ \hline
+Sprint 5 & HU4 & Definir qué señales de evidencia disponible se usan para estimar la confianza, como la cantidad de señales activas, la cobertura de datos o el cold-start & 6 h & 0\% \\ \hline
+Sprint 5 & Documentación & Redactar las señales del recomendador híbrido en la memoria & 8 h & 0\% \\ \hline
+Sprint 5 & Documentación & Redactar el ranker y la combinación de señales en la memoria & 8 h & 0\% \\ \hline
+Sprint 5 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 6 & HU4 & Diseñar la fórmula o heurística de score de confianza en función de esas señales & 6 h & 0\% \\ \hline
+Sprint 6 & HU4 & Implementar el cálculo del score y exponerlo junto con cada recomendación & 6 h & 0\% \\ \hline
+Sprint 6 & HU4 & Definir y calibrar un umbral configurable por debajo del que la recomendación se omite o se reemplaza por un fallback & 8 h & 0\% \\ \hline
+Sprint 6 & HU5 & Consolidar el perfilador (HU1/HU2) y el recomendador híbrido (HU3/HU4), entrenados sobre Amazon Reviews'23, como un único artefacto ``modelo pre entrenado'' & 8 h & 0\% \\ \hline
+Sprint 6 & HU5 & Definir la métrica de calidad y el conjunto de validación para evaluar el modelo pre entrenado & 4 h & 0\% \\ \hline
+Sprint 6 & HU5 & Evaluar el modelo pre entrenado de punta a punta (perfilado + recomendación) sobre el conjunto de validación & 6 h & 0\% \\ \hline
+Sprint 6 & Documentación & Documentar el pre entrenamiento & 6 h & 0\% \\ \hline
+Sprint 6 & Documentación & Documentar la evaluación del modelo pre entrenado & 6 h & 0\% \\ \hline
+Sprint 6 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 7 & HU5 & Versionar y persistir los artefactos del modelo pre entrenado para que el modelo dedicado (HU6) pueda reutilizarlos & 6 h & 0\% \\ \hline
+Sprint 7 & HU6 & Relevar candidatos de datasets más acotados, con menor volumen o riqueza de atributos & 6 h & 0\% \\ \hline
+Sprint 7 & HU6 & Seleccionar y preparar el dataset acotado para el ajuste & 6 h & 0\% \\ \hline
+Sprint 7 & HU6 & Definir el alcance del modelo dedicado: qué componentes del pre entrenado se reutilizan y cuáles se reentrenan/ajustan & 8 h & 0\% \\ \hline
+Sprint 7 & HU7 & Diseñar y documentar el contrato de \texttt{get\_profile(user)} (esquema de entrada/salida) & 6 h & 0\% \\ \hline
+Sprint 7 & HU7 & Diseñar y documentar el contrato de \texttt{recommend(context)} (esquema de entrada/salida) & 6 h & 0\% \\ \hline
+Sprint 7 & Contingencia & Buffer para desvíos de las tareas de HU5 y HU6 & 6 h & 0\% \\ \hline
+Sprint 7 & Contingencia & Buffer para desvíos de las tareas de HU7 & 6 h & 0\% \\ \hline
+Sprint 7 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 8 & HU6 & Preparar el ajuste del modelo dedicado, fijando los componentes reutilizados y configurando los que se reentrenan & 8 h & 0\% \\ \hline
+Sprint 8 & HU6 & Ajustar el modelo dedicado a partir del pre entrenado (fine-tuning / transfer learning) sobre el dataset acotado & 8 h & 0\% \\ \hline
+Sprint 8 & HU6 & Entrenar un modelo de referencia desde cero sobre el mismo dataset acotado, como línea base de comparación & 8 h & 0\% \\ \hline
+Sprint 8 & HU6 & Ajustar los hiperparámetros del modelo de referencia & 4 h & 0\% \\ \hline
+Sprint 8 & HU6 & Comparar las métricas de calidad entre el modelo dedicado y el modelo entrenado desde cero, y documentar la diferencia & 8 h & 0\% \\ \hline
+Sprint 8 & Documentación & Redactar el enfoque y el ajuste del modelo dedicado en la memoria & 7 h & 0\% \\ \hline
+Sprint 8 & Documentación & Redactar la comparación contra el modelo de referencia en la memoria & 7 h & 0\% \\ \hline
+Sprint 8 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 9 & HU6 & Validar que el proceso de ajuste es reproducible sobre el mismo dataset acotado & 6 h & 0\% \\ \hline
+Sprint 9 & HU7 & Implementar el endpoint \texttt{get\_profile(user)} sobre el perfilador & 8 h & 0\% \\ \hline
+Sprint 9 & HU7 & Implementar el endpoint \texttt{recommend(context)} sobre el recomendador & 8 h & 0\% \\ \hline
+Sprint 9 & HU7 & Definir una estrategia de versionado del contrato ante cambios internos del motor & 6 h & 0\% \\ \hline
+Sprint 9 & HU8 & Diseñar el flujo conversacional básico de la prueba de concepto, que incluye saludo, búsqueda, recomendación y cierre & 6 h & 0\% \\ \hline
+Sprint 9 & Documentación & Redactar el capítulo de API y prueba de concepto & 8 h & 0\% \\ \hline
+Sprint 9 & Documentación & Redactar las conclusiones de la memoria & 8 h & 0\% \\ \hline
+Sprint 9 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
+Sprint 10 & HU7 & Probar ambos endpoints de punta a punta, midiendo tiempos de respuesta y formatos, y documentar los resultados & 6 h & 0\% \\ \hline
+Sprint 10 & HU8 & Implementar el agente orquestador sobre la API de Claude & 6 h & 0\% \\ \hline
+Sprint 10 & HU8 & Definir las herramientas \texttt{get\_profile}/\texttt{recommend} del agente & 6 h & 0\% \\ \hline
+Sprint 10 & HU8 & Integrar el agente con la API del motor (llamadas reales a \texttt{get\_profile}/\texttt{recommend}) & 8 h & 0\% \\ \hline
+Sprint 10 & HU8 & Definir escenarios de prueba simulados que cubran un usuario recurrente, un usuario nuevo o cold-start, y un ítem sin metadata & 6 h & 0\% \\ \hline
+Sprint 10 & HU8 & Ejecutar y registrar al menos un ejemplo de conversación de punta a punta (log o transcripción) & 4 h & 0\% \\ \hline
+Sprint 10 & HU8 & Documentar la manera en que la prueba de concepto maneja los casos límite identificados & 4 h & 0\% \\ \hline
+Sprint 10 & Defensa & Preparar la presentación de la defensa & 5 h & 0\% \\ \hline
+Sprint 10 & Defensa & Ensayar la exposición & 5 h & 0\% \\ \hline
+Sprint 10 & Seguimiento & Sprint review, retrospectiva y reunión con el tutor & 4 h & 0\% \\ \hline
 \caption{Planificación de sprints con tareas técnicas y no técnicas. Total estimado: 600 h.}
 \end{longtable}
 
@@ -479,11 +503,11 @@ Sprint 7 & 06/01/2027 a 19/01/2027 & 38 h & 16 h & 54 h \\ \hline
 Sprint 8 & 20/01/2027 a 02/02/2027 & 36 h & 18 h & 54 h \\ \hline
 Sprint 9 & 03/02/2027 a 16/02/2027 & 34 h & 20 h & 54 h \\ \hline
 Sprint 10 & 17/02/2027 a 02/03/2027 & 40 h & 14 h & 54 h \\ \hline
-\textbf{Total} & & \textbf{354 h} & \textbf{246 h} & \textbf{600 h} \\ \hline
+Total & & 354 h & 246 h & 600 h \\ \hline
 \end{tabularx}
 \end{table}
 
-El Sprint 10 finaliza a comienzos de marzo de 2027. Ese margen previo a la defensa, prevista para abril de 2027, se reserva para la revisión final de la memoria y para acordar la fecha de la exposición.
+El sprint 10 finaliza a comienzos de marzo de 2027. Ese margen previo a la defensa, prevista para abril de 2027, se reserva para la revisión final de la memoria y para acordar la fecha de la exposición.
 
 \section{11. Diagrama de Gantt (sprints)}
 \label{sec:gantt}
@@ -546,7 +570,7 @@ El proyecto se apoya en el dataset público Amazon Reviews'23, que contiene rese
 
 Las fuentes de datos son públicas y no propias. El dataset no tiene asociada una licencia puntual, aunque sus autores permiten su uso con fines académicos\footnote{McAuley Lab (2024). Discusiones del dataset Amazon-Reviews-2023 en Hugging Face. \url{https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/discussions}.}. El código de procesamiento asociado se distribuye bajo licencia MIT\footnote{Hou, Y. (2024). AmazonReviews2023, licencia. \url{https://github.com/hyp1231/AmazonReviews2023/blob/main/LICENSE}.}. El dataset acotado para el modelo dedicado todavía no fue identificado, por lo que se hará el mismo análisis de licencia al seleccionarlo y se documentará el resultado. Se aplicará el mismo criterio a las herramientas y a los servicios empleados. PostgreSQL y las librerías de código abierto de Python se utilizan bajo sus licencias permisivas. La API de Claude se emplea bajo los términos del proveedor y solo recibirá datos de prueba de la prueba de concepto, sin información personal.
 
-Con estas medidas, el proyecto resulta legalmente viable. La trazabilidad de los datos se garantiza versionando los scripts de extracción y transformación, y registrando la versión del dataset y de los artefactos de los modelos que se derivan de él.
+Con estas medidas, el proyecto resulta legalmente viable. La trazabilidad de los datos se garantiza mediante el versionado de los scripts de extracción y transformación, y el registro de la versión del dataset y de los artefactos de los modelos que se derivan de él.
 
 \subsection{Ética en el uso de inteligencia artificial}
 
@@ -643,12 +667,12 @@ La revisión de sprint (\emph{Sprint Review}) es una práctica fundamental en me
 
 Aunque el proyecto aún se encuentre en etapa de planificación, esta sección permite proyectar cómo se evaluarán las funcionalidades más importantes del backlog. Esta mirada anticipada favorece la planificación enfocada en valor y permite reflexionar sobre posibles obstáculos.
 
-\textbf{Objetivo:} anticipar cómo se evaluará el avance del proyecto a medida que se desarrollen las funcionalidades, utilizando como base al menos cuatro historias de usuario del \emph{Product Backlog}.
+Objetivo: anticipar cómo se evaluará el avance del proyecto a medida que se desarrollen las funcionalidades, utilizando como base al menos cuatro historias de usuario del \emph{Product Backlog}.
 
 
 Seleccionar al menos 4 HU del Product Backlog. Para cada una, completar la siguiente tabla de revisión proyectada:
 
-\textbf{Formato sugerido:}
+Formato sugerido:
 \begin{table}[htpb]
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|>{\raggedright\arraybackslash}m{2.4cm}|
@@ -658,7 +682,7 @@ Seleccionar al menos 4 HU del Product Backlog. Para cada una, completar la sigui
                 >{\raggedright\arraybackslash}m{3cm}|}
 \hline
 \rowcolor[HTML]{CCCCCC}
-\textbf{HU seleccionada} & \textbf{Tareas asociadas} & \textbf{Entregable esperado} & \textbf{¿Cómo sabrás que está cumplida?} & \textbf{Observaciones o riesgos} \\
+HU seleccionada & Tareas asociadas & Entregable esperado & ¿Cómo sabrás que está cumplida? & Observaciones o riesgos \\
 \hline
                          & Tarea 1 &                             &                                           &                                     \\ \cline{2-2}
 \multirow{-2}{=}{HU1}    & Tarea 2 & \multirow{-2}{=}{Módulo funcional} & \multirow{-2}{=}{Cumple criterios de aceptación definidos} & \multirow{-2}{=}{Falta validar con el tutor} \\
@@ -680,7 +704,7 @@ Seleccionar al menos 4 HU del Product Backlog. Para cada una, completar la sigui
 
 La retrospectiva de sprint es una práctica orientada a la mejora continua. Al finalizar un sprint, el equipo (o el alumno, si trabaja de forma individual) reflexiona sobre lo que funcionó bien, lo que puede mejorarse y qué acciones concretas pueden implementarse para trabajar mejor en el futuro.
 
-Durante la cursada se propuso el uso de la \textbf{Estrella de la Retrospectiva}, que organiza la reflexión en torno a cinco ejes:
+Durante la cursada se propuso el uso de la Estrella de la Retrospectiva, que organiza la reflexión en torno a cinco ejes:
 
 \begin{itemize}
 \item  ¿Qué hacer más?
@@ -692,12 +716,12 @@ Durante la cursada se propuso el uso de la \textbf{Estrella de la Retrospectiva}
 
 Aun en una etapa temprana, esta herramienta permite que el alumno planifique su forma de trabajar, identifique anticipadamente posibles dificultades y diseñe estrategias de organización personal.
 
-\textbf{Objetivo:} reflexionar sobre las condiciones iniciales del proyecto, identificando fortalezas, posibles dificultades y estrategias de mejora, incluso antes del inicio del desarrollo.
+Objetivo: reflexionar sobre las condiciones iniciales del proyecto, identificando fortalezas, posibles dificultades y estrategias de mejora, incluso antes del inicio del desarrollo.
 
 
 Completar la siguiente tabla tomando como referencia los cinco ejes de la Estrella de la Retrospectiva (\emph{Starfish} o estrella de mar). Esta instancia te ayudará a definir buenas prácticas desde el inicio y prepararte para enfrentar el trabajo de forma organizada y flexible. Se deberá completar la tabla al menos para 3 sprints técnicos y 1 no técnico.
 
-\textbf{Formato sugerido:}
+Formato sugerido:
 
 \begin{table}[htpb]
 \renewcommand{\arraystretch}{1.4}
@@ -709,7 +733,7 @@ Completar la siguiente tabla tomando como referencia los cinco ejes de la Estrel
                 >{\raggedright\arraybackslash}p{2.3cm}|}
 \hline
 \rowcolor[HTML]{CCCCCC} 
-\textbf{Sprint tipo y N°} & \textbf{¿Qué hacer más?} & \textbf{¿Qué hacer menos?} & \textbf{¿Qué mantener?} & \textbf{¿Qué empezar a hacer?} & \textbf{¿Qué dejar de hacer?} \\
+Sprint tipo y N° & ¿Qué hacer más? & ¿Qué hacer menos? & ¿Qué mantener? & ¿Qué empezar a hacer? & ¿Qué dejar de hacer? \\
 \hline
 Sprint técnico - 1 & Validaciones continuas con el alumno & Cambios sin versión registrada & Pruebas con datos simulados & Documentar cambios propuestos & Ajustes sin análisis de impacto \\
 \hline
